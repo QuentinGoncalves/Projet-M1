@@ -132,8 +132,8 @@
           <div class="topbar-divider d-none d-sm-block"></div>
 
           <div class="small mb-1">  Choix Type Entrée: &emsp; </div>
-          <select class="mdb-select md-form">
-              <option>Livre</option>
+          <select class="mdb-select md-form" id="servers">
+              <option value="ws://lst-demo.univ-lemans.fr:8888/client/ws/speech|ws://lst-demo.univ-lemans.fr:8888/client/ws/status" selected="selected">Francais</option>
               <option>Microphone</option>
               <option>Radio</option>
           </select>
@@ -241,10 +241,27 @@
                         <!--Textarea with icon prefix-->
                         <div class="md-form mb-4 pink-textarea active-pink-textarea">
                           <h1 class="h3 mb-0 text-gray-800">Player</h1>
-                          <audio controls>
+                          <!-- <audio controls>
                               <source src="horse.ogg" type="audio/ogg">
                               <source src="horse.mp3" type="audio/mpeg">
-                            </audio>
+                            </audio> -->
+                            <button id="buttonToggleListening"
+                          	 onclick="toggleListening();"
+                          	  title="Starts/stops listening for speech.">
+                                Start
+                            </button>
+                            <button
+                            	id="buttonCancel"
+                            	disabled="disabled"
+                            	onclick="cancel();"
+                            	title="Cancels the speech recognition.">
+                                Cancel
+                            </button>
+                            <button
+                                onclick="clearTranscription();"
+                                title="Clears the transcription">
+                                  Clear
+                            </button>
                         </div>
                     </div>
                   </div>
@@ -266,7 +283,7 @@
                         <div class="md-form mb-4 pink-textarea active-pink-textarea">
                           <h1 class="h3 mb-0 text-gray-800">Transcription</h1>
                           <i class="fas fa-angle-double-right prefix"></i>
-                          <textarea id="form21" class="md-textarea form-control" rows="3"></textarea>
+                          <textarea disabled id="trans" class="md-textarea form-control" rows="3"></textarea>
                           <label for="form21"></label>
                         </div>
                     </div>
@@ -356,6 +373,15 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
+
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="js/other/jquery-1.10.2.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+  <script src="js/lib/dictate.js"></script>
+  <script src="js/lib/recorder.js"></script>
+  <script src="js/transcription.js"></script>
 
 </body>
 
