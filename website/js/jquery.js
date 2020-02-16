@@ -33,3 +33,14 @@ $(document).ready(function () {
 			player.play();
 	}
 });
+
+function disable() {
+	document.getElementById("ChoixEntree").disabled=true;
+	document.getElementById("ChoixSortie").disabled=true;
+	document.getElementById("ChoixType").disabled=true;
+}
+function enable() {
+	document.getElementById("ChoixEntree").disabled=false;
+	document.getElementById("ChoixSortie").disabled=false;
+	document.getElementById("ChoixType").disabled=false;
+}

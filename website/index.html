@@ -120,25 +120,37 @@
             <i class="fa fa-bars"></i>
           </button>
 
-          <div class="small mb-1">  Choix Langue Entrée:
-          <div class="radio">
-            <label><input type="radio" name="optradio" checked>Anglais -> Français</label>
-          </div>
-          <div class="radio">
-            <label><input type="radio" name="optradio">Français -> Anglais</label>
-          </div>
-          </div>
+          <div class="small mb-1">  Choix Langue Entrée: &emsp; </div>
+          <select id="ChoixEntree" class="mdb-select md-form" id="servers">
+              <option selected="selected">Francais</option>
+              <option>Anglais</option>
+          </select>
 
           <div class="topbar-divider d-none d-sm-block"></div>
 
+
+          <div class="small mb-1">  Choix Langue Sortie: &emsp; </div>
+          <select id="ChoixSortie" class="mdb-select md-form" id="servers">
+              <option selected="selected">Anglais</option>
+              <option>Francais</option>
+          </select>
+
+          <div class="topbar-divider d-none d-sm-block"></div>
+
+
           <div class="small mb-1">  Choix Type Entrée: &emsp; </div>
-          <select class="mdb-select md-form" id="servers">
+          <select id="ChoixType" class="mdb-select md-form" id="servers">
               <option value="ws://lst-demo.univ-lemans.fr:8888/client/ws/speech|ws://lst-demo.univ-lemans.fr:8888/client/ws/status" selected="selected">Francais</option>
               <option>Microphone</option>
               <option>Radio</option>
           </select>
 
           <div class="topbar-divider d-none d-sm-block"></div>
+
+          <div class="small mb-1">
+            <input id="Confirm" type="button" value="Confirm" onclick="disable();" />
+            <input id="Reset" type="button" value="Reset" onclick="enable();" />
+          </div>
 
 
           <!-- Côté droit -->
