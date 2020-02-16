@@ -7,7 +7,6 @@ $(document).ready(function () {
 		var tracks = playlist.find('li a');
 		var len = tracks.length - 1;
 		audio[0].volume = .10;
-		audio[0].play();
 		playlist.on('click','a', function(e){
 			e.preventDefault();
 			link = $(this);
@@ -33,14 +32,3 @@ $(document).ready(function () {
 			player.play();
 	}
 });
-
-function disable() {
-	document.getElementById("ChoixEntree").disabled=true;
-	document.getElementById("ChoixSortie").disabled=true;
-	document.getElementById("ChoixType").disabled=true;
-}
-function enable() {
-	document.getElementById("ChoixEntree").disabled=false;
-	document.getElementById("ChoixSortie").disabled=false;
-	document.getElementById("ChoixType").disabled=false;
-}

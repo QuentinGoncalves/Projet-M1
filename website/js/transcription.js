@@ -15,6 +15,8 @@ var startPosition = 0;
 var endPosition = 0;
 var doUpper = false;
 var doPrependSpace = true;
+var servers = "";
+var dictate;
 
 function capitaliseFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -53,8 +55,8 @@ function prettyfyHyp(text, doCapFirst, doPrependSpace) {
 
 
 var dictate = new Dictate({
-		server : $("#servers").val().split('|')[0],
-		serverStatus : $("#servers").val().split('|')[1],
+		server : servers[0],
+		serverStatus : servers[1],
 		recorderWorkerPath : 'lib/recorderWorker.js',
 		onReadyForSpeech : function() {
 			isConnected = true;
@@ -164,12 +166,54 @@ function clearTranscription() {
 	$("#trans").prop("selectionEnd", 0);
 }
 
+function disable() {
+	document.getElementById("ChoixEntree").disabled=true;
+	document.getElementById("ChoixSortie").disabled=true;
+	document.getElementById("servers").disabled=true;
+	document.getElementById("Confirm").disabled=true;
+  document.getElementById("buttonToggleListening").disabled=false;
+
+  var menu_en = document.getElementById("ChoixEntree");
+	var val_en = menu_en.options[menu_en.selectedIndex].text;
+	var menu_so = document.getElementById("ChoixSortie");
+	var val_so = menu_so.options[menu_so.selectedIndex].text;
+	var menu_ty = document.getElementById("servers");
+	var val_ty = menu_ty.options[menu_ty.selectedIndex].text;
+
+  var val_serv =  document.getElementById("servers");
+  var servers = val_serv.options[val_serv.selectedIndex].value;
+
+
+  if(val_ty=="Fichier"){
+    document.getElementById("inputGroupFile01").disabled=false;
+  }
+  if(val_en == "Anglais"){
+    servers = servers.replace(/XXXX/g,"8889").split('|');       //pour transcription francais
+    $("#trans").append(servers[0],servers[1]);
+    dictate.setServer(servers[0]);
+		dictate.setServerStatus(servers[1]);
+
+  }else if (val_en == "Francais") {
+    servers = servers.replace(/XXXX/g,"8888").split('|');       //pour transcription francais
+    dictate.setServer(servers[0]);
+		dictate.setServerStatus(servers[1]);
+  }
+
+}
+
+function enable() {
+	document.getElementById("ChoixEntree").disabled=false;
+	document.getElementById("ChoixSortie").disabled=false;
+	document.getElementById("servers").disabled=false;
+	document.getElementById("Confirm").disabled=false;
+  document.getElementById("buttonToggleListening").disabled=true;
+  document.getElementById("inputGroupFile01").disabled=true;
+}
+
 $(document).ready(function() {
 	dictate.init();
-
 	$("#servers").change(function() {
 		dictate.cancel();
-		var servers = $("#servers").val().split('|');
 		dictate.setServer(servers[0]);
 		dictate.setServerStatus(servers[1]);
 	});
