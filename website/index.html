@@ -120,7 +120,7 @@
           <div class="small mb-1">  Choix Langue Entrée: &emsp; </div>
           <select id="servers" class="mdb-select md-form">
               <option value="ws://lst-demo.univ-lemans.fr:8888/client/ws/speech|ws://lst-demo.univ-lemans.fr:8888/client/ws/status" selected="selected">Francais</option>
-              <option value="ws://lst-demo.univ-lemans.fr:8889/client/ws/speech|ws://lst-demo.univ-lemans.fr:8889/client/ws/status">Anglais</option>
+              <option value="ws://lst-demo.univ-lemans.fr:443/client/ws/speech|ws://lst-demo.univ-lemans.fr:443/client/ws/status">Anglais</option>
           </select>
 
           <div class="topbar-divider d-none d-sm-block"></div>
@@ -254,10 +254,11 @@
                               <source src="horse.ogg" type="audio/ogg">
                               <source src="horse.mp3" type="audio/mpeg">
                             </audio> -->
-                            <input type="button" id="buttonToggleListening"
-                          	 onclick="toggleListening();"
-                          	  value="Start"
-                              disabled=true />
+                            <button id="buttonToggleListening"
+                            disabled
+                          	 onclick="toggleListening();">
+                              Start
+                            </button>
                             <input type="button"
                             	id="buttonCancel"
                             	disabled="disabled"
@@ -384,6 +385,9 @@
 
   <!-- Placed at the end of the document so the pages load faster -->
   <script src="js/other/jquery-1.10.2.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
   <script src="js/lib/dictate.js"></script>
   <script src="js/lib/recorder.js"></script>

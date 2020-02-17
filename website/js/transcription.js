@@ -15,8 +15,6 @@ var startPosition = 0;
 var endPosition = 0;
 var doUpper = false;
 var doPrependSpace = true;
-var servers = "";
-var dictate;
 
 function capitaliseFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
