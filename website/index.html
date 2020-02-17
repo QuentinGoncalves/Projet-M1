@@ -118,9 +118,9 @@
           </button>
 
           <div class="small mb-1">  Choix Langue Entrée: &emsp; </div>
-          <select id="ChoixEntree" class="mdb-select md-form">
-              <option selected="selected">Francais</option>
-              <option>Anglais</option>
+          <select id="servers" class="mdb-select md-form">
+              <option value="ws://lst-demo.univ-lemans.fr:8888/client/ws/speech|ws://lst-demo.univ-lemans.fr:8888/client/ws/status" selected="selected">Francais</option>
+              <option value="ws://lst-demo.univ-lemans.fr:8889/client/ws/speech|ws://lst-demo.univ-lemans.fr:8889/client/ws/status">Anglais</option>
           </select>
 
           <div class="topbar-divider d-none d-sm-block"></div>
@@ -129,17 +129,17 @@
           <div class="small mb-1">  Choix Langue Sortie: &emsp; </div>
           <select id="ChoixSortie" class="mdb-select md-form">
               <option selected="selected">Anglais</option>
-              <option>Francais</option>
+              <option >Francais</option>
           </select>
 
           <div class="topbar-divider d-none d-sm-block"></div>
 
 
           <div class="small mb-1">  Choix Type Entrée: &emsp; </div>
-          <select class="mdb-select md-form" id="servers">
-              <option value="ws://lst-demo.univ-lemans.fr:XXXX/client/ws/speech|ws://lst-demo.univ-lemans.fr:XXXX/client/ws/status" selected="selected">Fichier</option>
-              <option>Microphone</option>
-              <option>Radio</option>
+          <select class="mdb-select md-form" id="ChoixEntree">
+              <option >Fichier</option>
+              <option >Microphone</option>
+              <option >Radio</option>
           </select>
 
           <div class="topbar-divider d-none d-sm-block"></div>
@@ -254,24 +254,20 @@
                               <source src="horse.ogg" type="audio/ogg">
                               <source src="horse.mp3" type="audio/mpeg">
                             </audio> -->
-                            <button id="buttonToggleListening"
+                            <input type="button" id="buttonToggleListening"
                           	 onclick="toggleListening();"
-                          	  title="Starts/stops listening for speech."
-                              disabled="true">
-                                Start
-                            </button>
-                            <button
+                          	  value="Start"
+                              disabled=true />
+                            <input type="button"
                             	id="buttonCancel"
                             	disabled="disabled"
                             	onclick="cancel();"
-                            	title="Cancels the speech recognition.">
-                                Cancel
-                            </button>
-                            <button
+                            	title="Cancels the speech recognition."
+                              value="Cancel"/>
+                            <input type="button"
                                 onclick="clearTranscription();"
-                                title="Clears the transcription">
-                                  Clear
-                            </button>
+                                title="Clears the transcription"
+                                value="Clear"/>
                         </div>
                     </div>
                   </div>
@@ -367,6 +363,12 @@
     </div>
   </div>
 
+  <!-- Script for cURL command in JavaScript-->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <!-- Script for file upload-->
+  <script src="js/browser-upload.js"></script>
+
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -387,11 +389,9 @@
   <script src="js/lib/recorder.js"></script>
   <script src="js/transcription.js"></script>
 
-  <!-- Script for cURL command in JavaScript-->
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-  <!-- Script for file upload-->
-  <script src="js/browser-upload.js"></script>
+
+
 
 </body>
 

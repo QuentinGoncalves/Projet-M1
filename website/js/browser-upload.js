@@ -19,12 +19,11 @@ browser.addEventListener('change', add_file);
 function add_file() {
 	file = browser.files[0];
 	if(validFileType(file)){
-
 		//Set the audio into the HTML player
 		var blob = window.URL || window.webkitURL;
 	    if (!blob) {
 	        console.log('Your browser does not support Blob URLs :(');
-	        return;           
+	        return;
 	    }
 	    fileURL = blob.createObjectURL(file);
 		audio.src = fileURL;
@@ -34,7 +33,7 @@ function add_file() {
 		let formData = new FormData()
 		formData.append('file', file)
 		formData.append('content', '{"start": true, "asr_model_name": "french.studio.fr_FR"}')
-	
+
 		axios.post('http://lst-demo.univ-lemans.fr:8000/api/v1.1/files', formData, {
 		  headers: {
 		    'Authentication-Token' : 'WyIxOSIsImRjODIxMDExZDBkYjY0YmNiZjZjNmIzZDQzODZhOTQwIl0.EJs66g.5qnm6VETk7EqY3ubO3SMgW-4gmQ',
@@ -52,7 +51,7 @@ function add_file() {
 		  .catch(function (error) {
 		    console.log(error);
 		  });
-		  
+
 		}
 }
 
@@ -63,7 +62,7 @@ function validFileType(file) {
       return true;
     }
   }
-  return false;
+  return true;
 }
 
 // Get the process and get the xml once finished
@@ -76,7 +75,7 @@ function getProcess(){
 		    headers: {'Authentication-Token' : 'WyIxOSIsImRjODIxMDExZDBkYjY0YmNiZjZjNmIzZDQzODZhOTQwIl0.EJs66g.5qnm6VETk7EqY3ubO3SMgW-4gmQ' }
 			})
 			.then(function (reponse) {
-			    //On traite la suite une fois la réponse obtenue 
+			    //On traite la suite une fois la réponse obtenue
 			    console.log(reponse);
 			    if(reponse["data"]["status"] != "Finished"){
 			    	progress = reponse["data"]["progress"];

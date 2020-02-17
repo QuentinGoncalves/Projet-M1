@@ -55,8 +55,8 @@ function prettyfyHyp(text, doCapFirst, doPrependSpace) {
 
 
 var dictate = new Dictate({
-		server : servers[0],
-		serverStatus : servers[1],
+		server : $("#servers").val().split('|')[0],
+		serverStatus : $("#servers").val().split('|')[1],
 		recorderWorkerPath : 'lib/recorderWorker.js',
 		onReadyForSpeech : function() {
 			isConnected = true;
@@ -180,23 +180,9 @@ function disable() {
 	var menu_ty = document.getElementById("servers");
 	var val_ty = menu_ty.options[menu_ty.selectedIndex].text;
 
-  var val_serv =  document.getElementById("servers");
-  var servers = val_serv.options[val_serv.selectedIndex].value;
 
-
-  if(val_ty=="Fichier"){
+  if(val_en=="Fichier"){
     document.getElementById("inputGroupFile01").disabled=false;
-  }
-  if(val_en == "Anglais"){
-    servers = servers.replace(/XXXX/g,"8889").split('|');       //pour transcription francais
-    $("#trans").append(servers[0],servers[1]);
-    dictate.setServer(servers[0]);
-		dictate.setServerStatus(servers[1]);
-
-  }else if (val_en == "Francais") {
-    servers = servers.replace(/XXXX/g,"8888").split('|');       //pour transcription francais
-    dictate.setServer(servers[0]);
-		dictate.setServerStatus(servers[1]);
   }
 
 }
@@ -214,8 +200,8 @@ $(document).ready(function() {
 	dictate.init();
 	$("#servers").change(function() {
 		dictate.cancel();
-		dictate.setServer(servers[0]);
-		dictate.setServerStatus(servers[1]);
+		dictate.setServer($("#servers").val().split('|')[0]);
+		dictate.setServerStatus($("#servers").val().split('|')[1]);
 	});
 
 });
