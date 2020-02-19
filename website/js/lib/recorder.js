@@ -1,13 +1,13 @@
 (function(window){
 
-  var WORKER_PATH = 'recorderWorker.js';
+  var WORKER_PATH = 'js/lib/recorderWorker.js';
 
   var Recorder = function(source, cfg){
     var config = cfg || {};
     var bufferLen = config.bufferLen || 4096;
     this.context = source.context;
     this.node = this.context.createScriptProcessor(bufferLen, 1, 1);
-    var worker = new Worker(config.workerPath || WORKER_PATH);
+    var worker = new Worker(WORKER_PATH);
     worker.postMessage({
       command: 'init',
       config: {
