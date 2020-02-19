@@ -166,40 +166,39 @@ function clearTranscription() {
 	$("#trans").prop("selectionEnd", 0);
 }
 
-function disable() {
+function confirm() {
 	document.getElementById("ChoixEntree").disabled=true;
 	document.getElementById("ChoixSortie").disabled=true;
 	document.getElementById("servers").disabled=true;
 	document.getElementById("Confirm").disabled=true;
 
-  var menu_en = document.getElementById("ChoixEntree");
-	var val_en = menu_en.options[menu_en.selectedIndex].text;
-	var menu_so = document.getElementById("ChoixSortie");
-	var val_so = menu_so.options[menu_so.selectedIndex].text;
-	var menu_ty = document.getElementById("servers");
-	var val_ty = menu_ty.options[menu_ty.selectedIndex].text;
+  var menu_in = document.getElementById("ChoixEntree");
+	var val_in = menu_in.options[menu_in.selectedIndex].text;
+	var menu_out = document.getElementById("ChoixSortie");
+	var val_out = menu_out.options[menu_out.selectedIndex].text;
 
-
-  if(val_en=="Fichier"){
+  if(val_in=="Fichier"){
     document.getElementById("inputGroupFile01").disabled=false;
   }
   else{
+    dictate.init();
     document.getElementById("buttonToggleListening").disabled=false;
   }
 
 }
 
-function enable() {
+function reset() {
 	document.getElementById("ChoixEntree").disabled=false;
 	document.getElementById("ChoixSortie").disabled=false;
 	document.getElementById("servers").disabled=false;
 	document.getElementById("Confirm").disabled=false;
   document.getElementById("buttonToggleListening").disabled=true;
   document.getElementById("inputGroupFile01").disabled=true;
+
+  dictate.cancel();
 }
 
 $(document).ready(function() {
-	dictate.init();
 	$("#servers").change(function() {
 		dictate.cancel();
 		dictate.setServer($("#servers").val().split('|')[0]);

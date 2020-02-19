@@ -80,32 +80,44 @@
 		// Can be called multiple times.
 		// TODO: call something on success (MSG_INIT_RECORDER is currently called)
 		this.init = function() {
-			var audioSourceConstraints = {};
-			config.onEvent(MSG_WAITING_MICROPHONE, "Waiting for approval to access your microphone ...");
-			try {
+
+			var menu_in = document.getElementById("ChoixEntree");
+			var val_in = menu_in.options[menu_in.selectedIndex].text;
+
+			if(val_in == "Microphone"){
+				var audioSourceConstraints = {};
+				config.onEvent(MSG_WAITING_MICROPHONE, "Waiting for approval to access your microphone ...");
+				try {
+					window.AudioContext = window.AudioContext || window.webkitAudioContext;
+					navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+					window.URL = window.URL || window.webkitURL;
+					audioContext = new AudioContext();
+				} catch (e) {
+					// Firefox 24: TypeError: AudioContext is not a constructor
+					// Set media.webaudio.enabled = true (in about:config) to fix this.
+					config.onError(ERR_CLIENT, "Error initializing Web Audio browser: " + e);
+				}
+
+				if (navigator.getUserMedia) {
+					if(config.audioSourceId) {
+						audioSourceConstraints.audio = {
+							optional: [{ sourceId: config.audioSourceId }]
+						};
+					} else {
+						audioSourceConstraints.audio = true;
+					}
+					navigator.getUserMedia(audioSourceConstraints, startUserMedia, function(e) {
+						config.onError(ERR_CLIENT, "No live audio input in this browser: " + e);
+					});
+				} else {
+					config.onError(ERR_CLIENT, "No user media support");
+				}
+			}
+			else {
 				window.AudioContext = window.AudioContext || window.webkitAudioContext;
-				navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 				window.URL = window.URL || window.webkitURL;
 				audioContext = new AudioContext();
-			} catch (e) {
-				// Firefox 24: TypeError: AudioContext is not a constructor
-				// Set media.webaudio.enabled = true (in about:config) to fix this.
-				config.onError(ERR_CLIENT, "Error initializing Web Audio browser: " + e);
-			}
-
-			if (navigator.getUserMedia) {
-				if(config.audioSourceId) {
-					audioSourceConstraints.audio = {
-						optional: [{ sourceId: config.audioSourceId }]
-					};
-				} else {
-					audioSourceConstraints.audio = true;
-				}
-				navigator.getUserMedia(audioSourceConstraints, startUserMedia, function(e) {
-					config.onError(ERR_CLIENT, "No live audio input in this browser: " + e);
-				});
-			} else {
-				config.onError(ERR_CLIENT, "No user media support");
+				startUserMedia(null);
 			}
 		}
 
@@ -204,10 +216,15 @@
 
 		// Private methods
 		function startUserMedia(stream) {
+			var menu_in = document.getElementById("ChoixEntree");
+			var val_in = menu_in.options[menu_in.selectedIndex].text;
 
-			// audio = document.getElementById("audio")
-			// audio.captureStream = audio.mozCaptureStream || audio.captureStream;
-			// stream = audio.captureStream();
+			if(val_in == "Streaming"){
+				audio = document.getElementById("audio")
+				audio.captureStream = audio.mozCaptureStream || audio.captureStream;
+				stream = audio.captureStream();
+			}
+
 			var input = audioContext.createMediaStreamSource(stream);
 			config.onEvent(MSG_MEDIA_STREAM_CREATED, 'Media stream created');
                         //Firefox loses the audio input stream every five seconds
