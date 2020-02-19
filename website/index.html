@@ -230,7 +230,7 @@
                         <div class="md-form mb-4 pink-textarea active-pink-textarea">
                           <h1 class="h3 mb-0 text-gray-800">Player</h1>
                           <audio id="audio" preload="auto" tabindex="0" controls="" >
-                            <source src="http://www.archive.org/download/bolero_69/Bolero.mp3">
+                            <source src="audio/Les_trois_petits_cochons.mp3">
                             Your Fallback goes here
                           </audio>
                           </div>
@@ -254,11 +254,10 @@
                               <source src="horse.ogg" type="audio/ogg">
                               <source src="horse.mp3" type="audio/mpeg">
                             </audio> -->
-                            <button id="buttonToggleListening"
+                            <input type="button" id="buttonToggleListening"
                             disabled
-                          	 onclick="toggleListening();">
-                              Start
-                            </button>
+                          	 onclick="toggleListening();"
+                             value="Start"/>
                             <input type="button"
                             	id="buttonCancel"
                             	disabled="disabled"
@@ -392,7 +391,7 @@
   <script src="js/lib/dictate.js"></script>
   <script src="js/lib/recorder.js"></script>
   <script src="js/transcription.js"></script>
-    
+
   <!-- Script for translation-->
   <script src="js/translation.js"></script>
 

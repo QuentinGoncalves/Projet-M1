@@ -59,7 +59,7 @@ var dictate = new Dictate({
 		onReadyForSpeech : function() {
 			isConnected = true;
 			__message("READY FOR SPEECH");
-			$("#buttonToggleListening").html('Stop');
+			$("#buttonToggleListening").prop("value", 'Stop');
 			$("#buttonToggleListening").addClass('highlight');
 			$("#buttonToggleListening").prop("disabled", false);
 			$("#buttonCancel").prop("disabled", false);
@@ -75,13 +75,13 @@ var dictate = new Dictate({
 		},
 		onEndOfSpeech : function() {
 			__message("END OF SPEECH");
-			$("#buttonToggleListening").html('Stopping...');
+			$("#buttonToggleListening").prop("value",'Stopping...');
 			$("#buttonToggleListening").prop("disabled", true);
 		},
 		onEndOfSession : function() {
 			isConnected = false;
 			__message("END OF SESSION");
-			$("#buttonToggleListening").html('Start');
+			$("#buttonToggleListening").prop("value",'Start');
 			$("#buttonToggleListening").removeClass('highlight');
 			$("#buttonToggleListening").prop("disabled", false);
 			$("#buttonCancel").prop("disabled", true);
@@ -90,11 +90,13 @@ var dictate = new Dictate({
 			__serverStatus(json.num_workers_available);
 			// If there are no workers and we are currently not connected
 			// then disable the Start/Stop button.
-			if (json.num_workers_available == 0 && ! isConnected) {
-				$("#buttonToggleListening").prop("disabled", true);
-			} else {
-				$("#buttonToggleListening").prop("disabled", false);
-			}
+      if ($('Confirm').disabled == true && $('ChoixEntree') != "Fichier"){
+  			if (json.num_workers_available == 0 && ! isConnected) {
+  			} else {
+  				$("#buttonToggleListening").prop("disabled", false);
+  			}
+        $("#buttonToggleListening").prop("disabled", true);
+    }
 		},
 		onPartialResults : function(hypos) {
 			hypText = prettyfyHyp(hypos[0].transcript, doUpper, doPrependSpace);
@@ -169,7 +171,6 @@ function disable() {
 	document.getElementById("ChoixSortie").disabled=true;
 	document.getElementById("servers").disabled=true;
 	document.getElementById("Confirm").disabled=true;
-  document.getElementById("buttonToggleListening").disabled=false;
 
   var menu_en = document.getElementById("ChoixEntree");
 	var val_en = menu_en.options[menu_en.selectedIndex].text;
@@ -181,6 +182,9 @@ function disable() {
 
   if(val_en=="Fichier"){
     document.getElementById("inputGroupFile01").disabled=false;
+  }
+  else{
+    document.getElementById("buttonToggleListening").disabled=false;
   }
 
 }
