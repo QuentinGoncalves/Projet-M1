@@ -10,48 +10,50 @@ var HTMLtranscription = document.getElementById('trans');
 var HTMLtranslation = document.getElementById('form21');
 var audio = document.getElementById('audio');
 var browser = document.getElementById('inputGroupFile01');
+var inputType = document.getElementById('ChoixEntree');
 
 browser.addEventListener('change', add_file);
 HTMLtranscription.style.overflow = "auto";
 
 function add_file() {
-	file = browser.files[0];
-	if(validFileType(file)){
+	if(inputType.options[inputType.selectedIndex].text == "Fichier"){
+		file = browser.files[0];
+		if(validFileType(file)){
 
-		//Set the audio into the HTML player
-		var blob = window.URL || window.webkitURL;
-	    if (!blob) {
-	        console.log('Your browser does not support Blob URLs :(');
-	        return;           
-	    }
-	    fileURL = blob.createObjectURL(file);
-		audio.src = fileURL;
-		audio.load();
+			//Set the audio into the HTML player
+			var blob = window.URL || window.webkitURL;
+		    if (!blob) {
+		        console.log('Your browser does not support Blob URLs :(');
+		        return;           
+		    }
+		    fileURL = blob.createObjectURL(file);
+			audio.src = fileURL;
+			audio.load();
 
-		//Sent the curl command to start the transcription
-		let formData = new FormData()
-		formData.append('file', file)
-		formData.append('content', '{"start": true, "asr_model_name": "french.studio.fr_FR"}')
-	
-		axios.post('http://lst-demo.univ-lemans.fr:8000/api/v1.1/files', formData, {
-		  headers: {
-		    'Authentication-Token' : token,
-		  }
-		})
-		.then(function (response) {
-			// Save file id and process id
-		    console.log(response);
-		    id_file = response["data"]["processes"]["0"]["file_id"];
-		    console.log(id_file);
-		    id_process = response["data"]["processes"]["0"]["id"];
-		    console.log(id_process);
-		    getProcess();
-		  })
-		  .catch(function (error) {
-		    console.log(error);
-		  });
-		  
+			//Sent the curl command to start the transcription
+			let formData = new FormData()
+			formData.append('file', file)
+			formData.append('content', '{"start": true, "asr_model_name": "french.studio.fr_FR"}')
+		
+			axios.post('http://lst-demo.univ-lemans.fr:8000/api/v1.1/files', formData, {
+			  headers: {
+			    'Authentication-Token' : token,
+			  }
+			})
+			.then(function (response) {
+				// Save file id and process id
+			    console.log(response);
+			    id_file = response["data"]["processes"]["0"]["file_id"];
+			    console.log(id_file);
+			    id_process = response["data"]["processes"]["0"]["id"];
+			    console.log(id_process);
+			    getProcess();
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  }); 
 		}
+	}
 }
 
 //Return true if the file type is an audio file
@@ -104,10 +106,12 @@ function getXML(){
 			    var parser = new DOMParser();
 			    xml = parser.parseFromString(reponse["data"],"text/xml");
 
-			    displayTranscription();	//displayAllTranscription
+			    displayTranscription();
+			    //displayAllTranscription();
 
 			    // Add event listener to the audio element (show dynamically the text)
-			    audio.addEventListener('timeupdate', displayTranscription, false);		//focusTranscription
+			    audio.addEventListener('timeupdate', displayTranscription, false);
+			    //audio.addEventListener('timeupdate', focusTranscription, false);
 			    audio.addEventListener('loadedmetadata', removeAllListenerAudio, false);
 			})
 			.catch(function (erreur) {
@@ -179,7 +183,8 @@ function displayAllTranscription(){
 
 function removeAllListenerAudio(){
 	HTMLtranscription.innerHTML = "";
-	audio.removeEventListener("timeupdate", displayTranscription, false);	//focusTranscription
+	audio.removeEventListener("timeupdate", displayTranscription, false);
+	//audio.addEventListener('timeupdate', focusTranscription, false);
 	audio.removeEventListener("loadedmetadata", removeAllListenerAudio, false);
 	var url = 'http://lst-demo.univ-lemans.fr:8000/api/v1.1/files/'+id_file;
 	axios.delete({
