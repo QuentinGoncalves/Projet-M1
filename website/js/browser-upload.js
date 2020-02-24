@@ -16,25 +16,33 @@ browser.addEventListener('change', add_file);
 HTMLtranscription.style.overflow = "auto";
 
 function add_file() {
-	if(inputType.options[inputType.selectedIndex].text == "Fichier"){
-		file = browser.files[0];
-		if(validFileType(file)){
 
-			//Set the audio into the HTML player
-			var blob = window.URL || window.webkitURL;
-		    if (!blob) {
-		        console.log('Your browser does not support Blob URLs :(');
-		        return;           
-		    }
-		    fileURL = blob.createObjectURL(file);
-			audio.src = fileURL;
-			audio.load();
+	file = browser.files[0];
+	if(validFileType(file)){
+
+		//Set the audio into the HTML player
+		var blob = window.URL || window.webkitURL;
+			if (!blob) {
+					console.log('Your browser does not support Blob URLs :(');
+					return;
+			}
+			fileURL = blob.createObjectURL(file);
+		audio.src = fileURL;
+		audio.load();
+		if(inputType.options[inputType.selectedIndex].text == "Streaming"){
+			audio.onloadeddata = function() {
+				dictate.cancel();
+				dictate.init();
+				document.getElementById('buttonToggleListening').disabled=false;
+			}
+		}
+	if(inputType.options[inputType.selectedIndex].text == "Fichier"){
 
 			//Sent the curl command to start the transcription
 			let formData = new FormData()
 			formData.append('file', file)
 			formData.append('content', '{"start": true, "asr_model_name": "french.studio.fr_FR"}')
-		
+
 			axios.post('http://lst-demo.univ-lemans.fr:8000/api/v1.1/files', formData, {
 			  headers: {
 			    'Authentication-Token' : token,
@@ -51,7 +59,7 @@ function add_file() {
 			  })
 			  .catch(function (error) {
 			    console.log(error);
-			  }); 
+			  });
 		}
 	}
 }
@@ -74,7 +82,7 @@ function getProcess(){
 		    headers: {'Authentication-Token' : token }
 			})
 			.then(function (reponse) {
-			    //On traite la suite une fois la réponse obtenue 
+			    //On traite la suite une fois la réponse obtenue
 			    console.log(reponse);
 			    if(reponse["data"]["status"] != "Finished"){
 			    	progress = reponse["data"]["progress"];
@@ -165,7 +173,7 @@ function highlight(time) {
 	}
 	var text = xml.getElementsByTagName("Word")[i].childNodes[0].nodeValue.replace(/ /g,"") + " ";
 	var innerHTML = HTMLtranscription.innerHTML;
-    if (index >= 0) { 
+    if (index >= 0) {
     	innerHTML = innerHTML.substring(0,index) + "<mark>" + innerHTML.substring(index,index+text.length) + "</mark>" + innerHTML.substring(index + text.length);
     	HTMLtranscription.innerHTML = innerHTML;
     }

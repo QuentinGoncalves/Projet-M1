@@ -177,10 +177,10 @@ function confirm() {
 	var menu_out = document.getElementById("ChoixSortie");
 	var val_out = menu_out.options[menu_out.selectedIndex].text;
 
-  if(val_in=="Fichier"){
+  if(val_in!="Microphone"){
     document.getElementById("inputGroupFile01").disabled=false;
   }
-  else{
+  if(val_in!="Fichier"){
     dictate.init();
     document.getElementById("buttonToggleListening").disabled=false;
   }
