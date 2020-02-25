@@ -184,6 +184,11 @@ function confirm() {
     dictate.init();
     document.getElementById("buttonToggleListening").disabled=false;
   }
+	
+  if(val_in=="Fichier"){
+    document.getElementById("serverView").style.pointerEvents = "auto";
+    document.getElementById("serverView").style.opacity = "1";
+  }
 
 }
 
@@ -194,6 +199,8 @@ function reset() {
 	document.getElementById("Confirm").disabled=false;
   document.getElementById("buttonToggleListening").disabled=true;
   document.getElementById("inputGroupFile01").disabled=true;
+	document.getElementById("serverView").style.pointerEvents = "none";
+    	document.getElementById("serverView").style.opacity = "0.5";
 
   dictate.cancel();
 }
