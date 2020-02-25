@@ -11,9 +11,31 @@ var HTMLtranslation = document.getElementById('form21');
 var audio = document.getElementById('audio');
 var browser = document.getElementById('inputGroupFile01');
 var inputType = document.getElementById('ChoixEntree');
+var playlist = document.getElementById("serverView");
 
 browser.addEventListener('change', add_file);
+//browser.addEventListener('change', test);
 HTMLtranscription.style.overflow = "auto";
+HTMLtranscription.style.height = "auto";
+
+update_playlist();
+
+/*
+function test(){
+	file = browser.files[0];
+	let formData = new FormData()
+	formData.append('file', file);
+
+	axios.post('./php/save_audio.php', formData, {
+	})
+	.then(function (response) {
+		console.log(response);
+	})
+	.catch(function (error) {
+		console.log(error);
+	});	
+}
+*/
 
 function add_file() {
 
@@ -22,11 +44,11 @@ function add_file() {
 
 		//Set the audio into the HTML player
 		var blob = window.URL || window.webkitURL;
-			if (!blob) {
-					console.log('Your browser does not support Blob URLs :(');
-					return;
-			}
-			fileURL = blob.createObjectURL(file);
+		if (!blob) {
+				console.log('Your browser does not support Blob URLs :(');
+				return;
+		}
+		fileURL = blob.createObjectURL(file);
 		audio.src = fileURL;
 		audio.load();
 		if(inputType.options[inputType.selectedIndex].text == "Streaming"){
@@ -36,7 +58,7 @@ function add_file() {
 				document.getElementById('buttonToggleListening').disabled=false;
 			}
 		}
-	if(inputType.options[inputType.selectedIndex].text == "Fichier"){
+		else if(inputType.options[inputType.selectedIndex].text == "Fichier"){
 
 			//Sent the curl command to start the transcription
 			let formData = new FormData()
@@ -50,12 +72,10 @@ function add_file() {
 			})
 			.then(function (response) {
 				// Save file id and process id
-			    console.log(response);
+			    //console.log(response);
 			    id_file = response["data"]["processes"]["0"]["file_id"];
-			    console.log(id_file);
 			    id_process = response["data"]["processes"]["0"]["id"];
-			    console.log(id_process);
-			    getProcess();
+			    update_playlist();
 			  })
 			  .catch(function (error) {
 			    console.log(error);
@@ -72,9 +92,9 @@ function validFileType(file) {
   return false;
 }
 
+/*
 // Get the process and get the xml once finished
-function getProcess(){
-	//id_process = 3959;
+function getProcess(id_process){
 	var url = 'http://lst-demo.univ-lemans.fr:8000/api/v1.1/processes/'+id_process;
 	var progress;
 	axios({
@@ -83,26 +103,19 @@ function getProcess(){
 			})
 			.then(function (reponse) {
 			    //On traite la suite une fois la réponse obtenue
-			    console.log(reponse);
+			    update_playlist();
 			    if(reponse["data"]["status"] != "Finished"){
-			    	progress = reponse["data"]["progress"];
-					HTMLtranscription.innerHTML = progress+"%";
-					setTimeout(getProcess, 5000)
-				} else {
-					HTMLtranscription.innerHTML = "100%";
-					getXML();
+					setTimeout(getProcess(id_process), 5000)
 				}
 			})
 			.catch(function (erreur) {
 			    //On traite ici les erreurs éventuellement survenues
 			    console.log(erreur);
 			});
-}
+}*/
 
 // Get the XML with the id file
-function getXML(){
-	//id_process = 3959;
-	//id_file = 3974;
+function getXML(id_file){
 	var url = 'http://lst-demo.univ-lemans.fr:8000/api/v1.1/files/'+id_file+'/transcription?format=xml';
 	axios({
 		    url: url,
@@ -110,16 +123,18 @@ function getXML(){
 			})
 			.then(function (reponse) {
 			    //On traite la suite une fois la réponse obtenue
-			    console.log(reponse);
+			    //console.log(reponse);
 			    var parser = new DOMParser();
 			    xml = parser.parseFromString(reponse["data"],"text/xml");
 
-			    displayTranscription();
-			    //displayAllTranscription();
+			    removeAllListenerAudio();
+
+			    //displayTranscription();
+			    displayAllTranscription();
 
 			    // Add event listener to the audio element (show dynamically the text)
-			    audio.addEventListener('timeupdate', displayTranscription, false);
-			    //audio.addEventListener('timeupdate', focusTranscription, false);
+			    //audio.addEventListener('timeupdate', displayTranscription, false);
+			    audio.addEventListener('timeupdate', focusTranscription, false);
 			    audio.addEventListener('loadedmetadata', removeAllListenerAudio, false);
 			})
 			.catch(function (erreur) {
@@ -128,7 +143,7 @@ function getXML(){
 			});
 }
 
-
+/*
 // Get the String text in the XML with a time
 function XMLtoString_CurrentTime(time){
 	var text = "";
@@ -140,8 +155,8 @@ function XMLtoString_CurrentTime(time){
 		xmlTime = parseFloat(xml.getElementsByTagName("Word")[i].getAttribute("stime"));
 	}
 	return text;
-}
-
+}*/
+/*
 function displayTranscription(){
 	if(xml != null){
 		var duration = audio.currentTime;
@@ -152,7 +167,7 @@ function displayTranscription(){
 		HTMLtranscription.innerHTML = XMLtoString_CurrentTime(duration);
 		HTMLtranscription.scrollTop = HTMLtranscription.scrollHeight;
 	}
-}
+}*/
 
 function focusTranscription(){
 	if(xml != null){
@@ -174,7 +189,7 @@ function highlight(time) {
 	var text = xml.getElementsByTagName("Word")[i].childNodes[0].nodeValue.replace(/ /g,"") + " ";
 	var innerHTML = HTMLtranscription.innerHTML;
     if (index >= 0) {
-    	innerHTML = innerHTML.substring(0,index) + "<mark>" + innerHTML.substring(index,index+text.length) + "</mark>" + innerHTML.substring(index + text.length);
+    	innerHTML = innerHTML.substring(0,index) + "<mark>" + innerHTML.substring(index,index+text.length-1) + "</mark>" + innerHTML.substring(index + text.length-1);
     	HTMLtranscription.innerHTML = innerHTML;
     }
 }
@@ -191,20 +206,72 @@ function displayAllTranscription(){
 
 function removeAllListenerAudio(){
 	HTMLtranscription.innerHTML = "";
-	audio.removeEventListener("timeupdate", displayTranscription, false);
-	//audio.addEventListener('timeupdate', focusTranscription, false);
+	//audio.removeEventListener("timeupdate", displayTranscription, false);
+	audio.removeEventListener('timeupdate', focusTranscription, false);
 	audio.removeEventListener("loadedmetadata", removeAllListenerAudio, false);
-	var url = 'http://lst-demo.univ-lemans.fr:8000/api/v1.1/files/'+id_file;
-	axios.delete({
+}
+
+function add_playlist(text, id_file, id_process, progress){
+	var li = document.createElement("LI");
+	var hr = document.createElement("hr");
+	var font = document.createElement("font");
+
+	hr.setAttribute('class', 'sidebar-divider');
+	li.setAttribute("id_file", id_file);
+	li.setAttribute("id_process", id_process);
+	li.setAttribute("class", "active sidebar-heading");
+
+	if(progress >= 100){
+		var textnode = document.createTextNode(text);
+		font.setAttribute("color", "white");
+		var a = document.createElement("a");
+		a.setAttribute('href', '#');
+		a.setAttribute('onClick', 'getXML('+id_file+')');
+		font.appendChild(textnode);
+		a.appendChild(font);
+		li.appendChild(a);
+		//li.setAttribute("onclick", getXML(id_file));
+	} else {
+		var textnode = document.createTextNode(text+"..."+progress+"%");
+		font.setAttribute("color", "gray");
+		font.appendChild(textnode);
+		li.appendChild(font);
+	}
+
+	playlist.appendChild(li);
+	playlist.appendChild(hr);
+}
+
+function remove_all_playlist(){
+	while (playlist.firstChild) {
+    	playlist.removeChild(playlist.lastChild);
+  	}
+}
+
+function update_playlist(){
+	var url = 'http://lst-demo.univ-lemans.fr:8000/api/v1.1/files';
+	axios({
 		    url: url,
-		    headers: {'Authentication-Token' : token}
+		    headers: {'Authentication-Token' : token }
 			})
 			.then(function (reponse) {
 			    //On traite la suite une fois la réponse obtenue
-			    console.log(reponse);
+			    playlist.innerHTML = "";
+			    var dataList =reponse["data"];
+			    var all_finished = true;
+			    //console.log(dataList);
+			    for(var i=0; i<dataList.length; i++){
+			    	if(dataList[i]["processes"]["0"]["status"] == "Finished"){
+			    		add_playlist(dataList[i]["filename"] ,dataList[i]["processes"]["0"]["file_id"], dataList[i]["processes"]["0"]["id"], 100);
+			    	} else {
+			    		add_playlist(dataList[i]["filename"] ,dataList[i]["processes"]["0"]["file_id"], dataList[i]["processes"]["0"]["id"], dataList[i]["processes"]["0"]["progress"]);
+			    		all_finished = false;
+			    	}
+			    }
+			    if(!all_finished) setTimeout(update_playlist(), 5000);
 			})
 			.catch(function (erreur) {
-			    // On traite ici les erreurs éventuellement survenues
+			    //On traite ici les erreurs éventuellement survenues
 			    console.log(erreur);
 			});
 }
