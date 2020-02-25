@@ -126,6 +126,9 @@ function getXML(id_file){
 			    //console.log(reponse);
 			    var parser = new DOMParser();
 			    xml = parser.parseFromString(reponse["data"],"text/xml");
+		
+			    audio.src = "";
+			    audio.load();
 
 			    removeAllListenerAudio();
 
