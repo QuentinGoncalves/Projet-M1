@@ -223,10 +223,10 @@ function add_playlist(text, id_file, id_process, progress){
 	li.setAttribute("id_file", id_file);
 	li.setAttribute("id_process", id_process);
 	li.setAttribute("class", "active sidebar-heading");
+	font.setAttribute("color", "white");
 
 	if(progress >= 100){
-		var textnode = document.createTextNode(text);
-		font.setAttribute("color", "white");
+		var textnode = document.createTextNode(text);	
 		var a = document.createElement("a");
 		a.setAttribute('href', '#');
 		a.setAttribute('onClick', 'getXML('+id_file+')');
@@ -235,8 +235,9 @@ function add_playlist(text, id_file, id_process, progress){
 		li.appendChild(a);
 		//li.setAttribute("onclick", getXML(id_file));
 	} else {
+		li.style.pointerEvents = "none";
+    		li.style.opacity = "0.5";
 		var textnode = document.createTextNode(text+"..."+progress+"%");
-		font.setAttribute("color", "gray");
 		font.appendChild(textnode);
 		li.appendChild(font);
 	}
