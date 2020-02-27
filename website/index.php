@@ -188,8 +188,7 @@
                         ?>
                         <script type="text/javascript">
                          document.getElementById("imageCon").setAttribute("src", "img/logout.png");
-                         document.getElementById("userDropdown").setAttribute("href","index.php");
-                         document.getElementById("userDropdown").setAttribute("onclick","deconnexion();");
+                         document.getElementById("userDropdown").setAttribute("href","includes/deconnexion.php");
                         </script>
                        <?= $_SESSION['nom'] . " " . $_SESSION['prenom']; ?></span>
                      <?php }else{
