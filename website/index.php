@@ -220,47 +220,28 @@
           <!-- Content Row -->
           <div class="row">
 
-            <!-- Player Transcription -->
-            <div class="col-xl-6 col-md-6 mb-4">
+            <!-- Commandes Streaming / Microphone -->
+            <div  id="hautGaucheBouton" class="col-xl-6 col-md-6 mb-4">
               <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="md-form mb-4 pink-textarea active-pink-textarea">
-                          <h1 class="h3 mb-0 text-gray-800">Player</h1>
-                          <audio id="audio" preload="auto" tabindex="0" controls="" >
-                            Your Fallback goes here
-                          </audio>
-                          </div>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-            <!-- Player Traduction -->
-            <div class="col-xl-6 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <!--Textarea with icon prefix-->
                         <div class="md-form mb-4 pink-textarea active-pink-textarea">
-                          <h1 class="h3 mb-0 text-gray-800">Player</h1>
+                          <h1 class="h3 mb-0 text-gray-800">Commandes</h1>
                           <!-- <audio controls>
                               <source src="horse.ogg" type="audio/ogg">
                               <source src="horse.mp3" type="audio/mpeg">
                             </audio> -->
                             <input type="button" id="buttonToggleListening"
                             disabled
-                          	 onclick="toggleListening();"
+                             onclick="toggleListening();"
                              value="Start"/>
                             <input type="button"
-                            	id="buttonCancel"
-                            	disabled="disabled"
-                            	onclick="cancel();"
-                            	title="Cancels the speech recognition."
+                              id="buttonCancel"
+                              disabled="disabled"
+                              onclick="cancel();"
+                              title="Cancels the speech recognition."
                               value="Cancel"/>
                             <input type="button"
                                 onclick="clearTranscription();"
@@ -272,7 +253,46 @@
                 </div>
               </div>
             </div>
-          </div>
+
+            <!-- Player Transcription -->
+            <div id="hautGauchePlayer" class="col-xl-6 col-md-6 mb-4" >
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="md-form mb-4 pink-textarea active-pink-textarea">
+                          <h1 class="h3 mb-0 text-gray-800">Player Entree</h1>
+                          <audio id="audio" preload="auto" tabindex="0" controls="" >
+                            Your Fallback goes here
+                          </audio>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Player Traduction -->
+              <div id="hautDroitPlayer" class="col-xl-6 col-md-6 mb-4" >
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                          <div class="md-form mb-4 pink-textarea active-pink-textarea">
+                            <h1 class="h3 mb-0 text-gray-800">Player Sortie</h1>
+                            <audio id="audio" preload="auto" tabindex="0" controls="" >
+                              Your Fallback goes here
+                            </audio>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+            </div>
 
           <!-- Content Row -->
           <div class="row">
@@ -306,7 +326,7 @@
                         <div class="md-form mb-4 pink-textarea active-pink-textarea">
                           <h1 class="h3 mb-0 text-gray-800">Traduction</h1>
                           <i class="fas fa-angle-double-right prefix"></i>
-                          <textarea id="form21" class="md-textarea form-control" rows="3"></textarea>
+                          <textarea id="trad" class="md-textarea form-control" rows="3"></textarea>
                           <label for="form21"></label>
                         </div>
                     </div>
@@ -388,12 +408,10 @@
 
   <script src="js/lib/dictate.js"></script>
   <script src="js/lib/recorder.js"></script>
-  <script src="js/transcription.js"></script>
+  <script type="text/javascript" src="js/transcription.js?$$REVISION$$"></script>
 
   <!-- Script for translation-->
   <script src="js/translation.js"></script>
-
-  <script src="js/controleur_connexion.js"></script>
 
 
 

@@ -16,6 +16,7 @@ var endPosition = 0;
 var doUpper = false;
 var doPrependSpace = true;
 
+
 function capitaliseFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -171,19 +172,24 @@ function confirm() {
 	document.getElementById("ChoixSortie").disabled=true;
 	document.getElementById("servers").disabled=true;
 	document.getElementById("Confirm").disabled=true;
+  document.getElementById("Reset").disabled=false;
 
   var menu_in = document.getElementById("ChoixEntree");
 	var val_in = menu_in.options[menu_in.selectedIndex].text;
 	var menu_out = document.getElementById("ChoixSortie");
 	var val_out = menu_out.options[menu_out.selectedIndex].text;
 
-  if(val_in!="Microphone"){
+  if(val_in=="Fichier"){
     document.getElementById("inputGroupFile01").disabled=false;
   }
-  if(val_in!="Fichier"){
+  else {
+    document.getElementById("hautGauchePlayer").style.display="none";
+    document.getElementById("hautGaucheBouton").style.display="block";
     dictate.init();
     document.getElementById("buttonToggleListening").disabled=false;
   }
+
+
 
 }
 
@@ -192,15 +198,28 @@ function reset() {
 	document.getElementById("ChoixSortie").disabled=false;
 	document.getElementById("servers").disabled=false;
 	document.getElementById("Confirm").disabled=false;
-  document.getElementById("buttonToggleListening").disabled=true;
-  document.getElementById("inputGroupFile01").disabled=true;
+  document.getElementById("Reset").disabled=true;
 
+  var menu_in = document.getElementById("ChoixEntree");
+  var val_in = menu_in.options[menu_in.selectedIndex].text;
+  var menu_out = document.getElementById("ChoixSortie");
+  var val_out = menu_out.options[menu_out.selectedIndex].text;
+
+  if(val_in=="Fichier"){
+    document.getElementById("buttonToggleListening").disabled=true;
+    document.getElementById("inputGroupFile01").disabled=true;
+  }else{
+    document.getElementById("hautGauchePlayer").style.display="block";
+    document.getElementById("hautGaucheBouton").style.display="none";    
+  }
   dictate.cancel();
 }
 
 
 
 $(document).ready(function() {
+  document.getElementById("Reset").disabled=true;
+  document.getElementById("hautGaucheBouton").style.display="none";
 	$("#servers").change(function() {
 		dictate.cancel();
 		dictate.setServer($("#servers").val().split('|')[0]);
