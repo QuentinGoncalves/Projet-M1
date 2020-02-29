@@ -181,6 +181,8 @@ function confirm() {
 
   if(val_in=="Fichier"){
     document.getElementById("inputGroupFile01").disabled=false;
+    document.getElementById("serverView").style.pointerEvents = "auto";
+    document.getElementById("serverView").style.opacity = "1";
   }
   else {
     document.getElementById("hautGauchePlayer").style.display="none";
@@ -199,6 +201,8 @@ function reset() {
 	document.getElementById("servers").disabled=false;
 	document.getElementById("Confirm").disabled=false;
   document.getElementById("Reset").disabled=true;
+	document.getElementById("serverView").style.pointerEvents = "none";
+    	document.getElementById("serverView").style.opacity = "0.5";
 
   var menu_in = document.getElementById("ChoixEntree");
   var val_in = menu_in.options[menu_in.selectedIndex].text;
