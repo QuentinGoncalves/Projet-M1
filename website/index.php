@@ -103,7 +103,15 @@
               </li>
           </ul>
       </div>
-
+       <!-- Divider -->
+      <hr class="sidebar-divider">
+      
+      <div class="sidebar-heading">
+        <ul id="serverView" style="pointer-events: none; opacity: 0.5;">
+          
+        </ul>
+      </div>
+      
     </ul>
     <!-- End of Sidebar -->
 
@@ -385,7 +393,7 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
   <!-- Script for file upload-->
-  <script src="js/browser-upload.js"></script>
+  <script type="text/javascript" src="js/browser-upload.js?$$REVISION$$"></script>
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
