@@ -29,7 +29,7 @@ function save_file(id_file){
 	axios.post('save.php', formData, {
 	})
 	.then(function (response) {
-		//console.log(response);
+		console.log(response);
 	})
 	.catch(function (error) {
 		console.log(error);
@@ -43,7 +43,7 @@ function delete_file(id_file){
 	axios.post('delete.php', formData, {
 	})
 	.then(function (response) {
-		//console.log(response);
+		console.log(response);
 	})
 	.catch(function (error) {
 		console.log(error);
@@ -300,11 +300,13 @@ function update_playlist(){
 			    var all_finished = true;
 			    //console.log(dataList);
 			    for(var i=0; i<dataList.length; i++){
-			    	if(dataList[i]["processes"]["0"]["status"] == "Finished"){
-			    		add_playlist(dataList[i]["filename"] ,dataList[i]["processes"]["0"]["file_id"], dataList[i]["processes"]["0"]["id"], 100);
-			    	} else {
-			    		add_playlist(dataList[i]["filename"] ,dataList[i]["processes"]["0"]["file_id"], dataList[i]["processes"]["0"]["id"], dataList[i]["processes"]["0"]["progress"]);
-			    		all_finished = false;
+			    	if(dataList[i]["processes"]["0"] != undefined){
+				    	if(dataList[i]["processes"]["0"]["status"] == "Finished"){
+				    		add_playlist(dataList[i]["filename"] ,dataList[i]["processes"]["0"]["file_id"], dataList[i]["processes"]["0"]["id"], 100);
+				    	} else {
+				    		add_playlist(dataList[i]["filename"] ,dataList[i]["processes"]["0"]["file_id"], dataList[i]["processes"]["0"]["id"], dataList[i]["processes"]["0"]["progress"]);
+				    		all_finished = false;
+				    	}
 			    	}
 			    }
 			    if(!all_finished) setTimeout(update_playlist(), 50000);
