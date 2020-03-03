@@ -26,7 +26,7 @@ function save_file(id_file){
 	formData.append('file', file);
 	formData.append('name', id_file);
 
-	axios.post('../save.php', formData, {
+	axios.post('save.php', formData, {
 	})
 	.then(function (response) {
 		//console.log(response);
@@ -40,7 +40,7 @@ function delete_file(id_file){
 	let formData = new FormData();
 	formData.append('id', id_file);
 
-	axios.post('../delete.php', formData, {
+	axios.post('delete.php', formData, {
 	})
 	.then(function (response) {
 		//console.log(response);
