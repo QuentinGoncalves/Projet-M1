@@ -105,13 +105,13 @@
       </div>
        <!-- Divider -->
       <hr class="sidebar-divider">
-      
+
       <div class="sidebar-heading">
         <ul id="serverView" style="pointer-events: none; opacity: 0.5;">
-          
+
         </ul>
       </div>
-      
+
     </ul>
     <!-- End of Sidebar -->
 
@@ -130,7 +130,7 @@
           </button>
 
           <div class="small mb-1">  Choix Langue Entrée: &emsp; </div>
-          <select id="servers" class="mdb-select md-form">
+          <select disabled id="servers" class="mdb-select md-form">
               <option value="ws://lst-demo.univ-lemans.fr:8888/client/ws/speech|ws://lst-demo.univ-lemans.fr:8888/client/ws/status" selected="selected">Francais</option>
               <option value="ws://lst-demo.univ-lemans.fr:443/client/ws/speech|ws://lst-demo.univ-lemans.fr:443/client/ws/status">Anglais</option>
           </select>
@@ -139,7 +139,7 @@
 
 
           <div class="small mb-1">  Choix Langue Sortie: &emsp; </div>
-          <select id="ChoixSortie" class="mdb-select md-form">
+          <select disabled id="ChoixSortie" class="mdb-select md-form">
               <option >Francais</option>
           </select>
 
@@ -147,7 +147,7 @@
 
 
           <div class="small mb-1">  Choix Type Entrée: &emsp; </div>
-          <select class="mdb-select md-form" id="ChoixEntree">
+          <select disabled class="mdb-select md-form" id="ChoixEntree">
               <option >Fichier</option>
               <option >Microphone</option>
               <option >Streaming</option>
@@ -156,8 +156,8 @@
           <div class="topbar-divider d-none d-sm-block"></div>
 
           <div class="small mb-1">
-            <input id="Confirm" type="button" value="Confirm" onclick="confirm();" />
-            <input id="Reset" type="button" value="Reset" onclick="reset();" />
+            <input disabled id="Confirm" type="button" value="Confirm" onclick="confirm();" />
+            <input disabled id="Reset" type="button" value="Reset" onclick="reset();" />
           </div>
 
 
@@ -194,10 +194,9 @@
                   <?php
                       if(isset($_SESSION['nom']) && (isset($_SESSION['prenom']))){
                         ?>
-                        <script type="text/javascript">
-                         document.getElementById("imageCon").setAttribute("src", "img/logout.png");
-                         document.getElementById("userDropdown").setAttribute("href","includes/deconnexion.php");
-                        </script>
+
+                        <script type="text/javascript" src="js/affichage.js?$$REVISION$$" language="javascript"></script>
+
                        <?= $_SESSION['nom'] . " " . $_SESSION['prenom']; ?></span>
                      <?php }else{
                        ?>
@@ -229,7 +228,7 @@
           <div class="row">
 
             <!-- Commandes Streaming / Microphone -->
-            <div  id="hautGaucheBouton" class="col-xl-6 col-md-6 mb-4">
+            <div style="display: none"="none" id="hautGaucheBouton" class="col-xl-6 col-md-6 mb-4">
               <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -263,7 +262,7 @@
             </div>
 
             <!-- Player Transcription -->
-            <div id="hautGauchePlayer" class="col-xl-6 col-md-6 mb-4" >
+            <div style="display: none"="none" id="hautGauchePlayer" class="col-xl-6 col-md-6 mb-4" >
               <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -273,6 +272,27 @@
                           <audio id="audio" preload="auto" tabindex="0" controls="" >
                             Your Fallback goes here
                           </audio>
+                          <div id="btnStream" class="md-form mb-4 pink-textarea active-pink-textarea">
+                            <h1 class="h3 mb-0 text-gray-800">Commandes</h1>
+                            <!-- <audio controls>
+                                <source src="horse.ogg" type="audio/ogg">
+                                <source src="horse.mp3" type="audio/mpeg">
+                              </audio> -->
+                              <input type="button" id="buttonToggleListening"
+                              disabled
+                               onclick="toggleListening();"
+                               value="Start"/>
+                              <input type="button"
+                                id="buttonCancel"
+                                disabled="disabled"
+                                onclick="cancel();"
+                                title="Cancels the speech recognition."
+                                value="Cancel"/>
+                              <input type="button"
+                                  onclick="clearTranscription();"
+                                  title="Clears the transcription"
+                                  value="Clear"/>
+                          </div>
                           </div>
                         </div>
                     </div>
@@ -281,7 +301,7 @@
               </div>
 
               <!-- Player Traduction -->
-              <div id="hautDroitPlayer" class="col-xl-6 col-md-6 mb-4" >
+              <div style="display: none"="none" id="hautDroitPlayer" class="col-xl-6 col-md-6 mb-4" >
                 <div class="card border-left-info shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -306,7 +326,7 @@
           <div class="row">
 
             <!-- Transcription -->
-            <div class="col-xl-6 col-md-6 mb-4">
+            <div style="display: none"="none" id="divTrans" class="col-xl-6 col-md-6 mb-4">
               <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -325,7 +345,7 @@
             </div>
 
             <!-- Traduction -->
-            <div class="col-xl-6 col-md-6 mb-4" >
+            <div style="display: none"="none" id="divTrad" class="col-xl-6 col-md-6 mb-4" >
               <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -334,7 +354,7 @@
                         <div class="md-form mb-4 pink-textarea active-pink-textarea">
                           <h1 class="h3 mb-0 text-gray-800">Traduction</h1>
                           <i class="fas fa-angle-double-right prefix"></i>
-                          <textarea id="trad" class="md-textarea form-control" rows="3"></textarea>
+                          <textarea disabled id="trad" class="md-textarea form-control" rows="3"></textarea>
                           <label for="form21"></label>
                         </div>
                     </div>
@@ -420,6 +440,8 @@
 
   <!-- Script for translation-->
   <script src="js/translation.js"></script>
+
+
 
 
 

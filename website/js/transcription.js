@@ -184,11 +184,19 @@ function confirm() {
     document.getElementById("serverView").style.pointerEvents = "auto";
     document.getElementById("serverView").style.opacity = "1";
   }
-  else {
+  else if(val_in=="Streaming"){
+    document.getElementById("buttonToggleListening").disabled=false;
+    document.getElementById("inputGroupFile01").disabled=false;
+    document.getElementById("btnStream").style.display="block";
+    document.getElementById("hautGauchePlayer").style.display="block";
+    document.getElementById("hautGaucheBouton").style.display="none";
+    dictate.init();
+  }
+  else{
+    document.getElementById("buttonToggleListening").disabled=false;
     document.getElementById("hautGauchePlayer").style.display="none";
     document.getElementById("hautGaucheBouton").style.display="block";
     dictate.init();
-    document.getElementById("buttonToggleListening").disabled=false;
   }
 
 
@@ -209,21 +217,18 @@ function reset() {
   var menu_out = document.getElementById("ChoixSortie");
   var val_out = menu_out.options[menu_out.selectedIndex].text;
 
-  if(val_in=="Fichier"){
+  if(val_in=="Fichier" || val_in=="Streaming"){
     document.getElementById("buttonToggleListening").disabled=true;
     document.getElementById("inputGroupFile01").disabled=true;
+    document.getElementById("btnStream").style.display="none";
   }else{
     document.getElementById("hautGauchePlayer").style.display="block";
-    document.getElementById("hautGaucheBouton").style.display="none";    
+    document.getElementById("hautGaucheBouton").style.display="none";
   }
   dictate.cancel();
 }
 
-
-
 $(document).ready(function() {
-  document.getElementById("Reset").disabled=true;
-  document.getElementById("hautGaucheBouton").style.display="none";
 	$("#servers").change(function() {
 		dictate.cancel();
 		dictate.setServer($("#servers").val().split('|')[0]);
