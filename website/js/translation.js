@@ -1,9 +1,10 @@
-var HTMLtranslation = document.getElementById('form21');
+var HTMLtranslation = document.getElementById('trad');
+var port = 8083;
 
 function add_translation(text){
 	//text = "hello";
 	let formData = new FormData();
-	var url = 'http://lst-demo.univ-lemans.fr:8083/translate?q=%22+encodeURIComponent('+ text +')+%22&source=en&target=fr&key=bla';
+	var url = 'http://lst-demo.univ-lemans.fr:'+port+'/translate?q=%22'+encodeURIComponent(text)+'%22&source=en&target=fr&key=bla';
 	var translated = "";
 	if(text != "" && text != undefined){
 		axios.get(url, formData, {
