@@ -131,8 +131,8 @@
 
           <div class="small mb-1">  Choix Langue Entrée: &emsp; </div>
           <select disabled id="servers" class="mdb-select md-form">
-              <option value="ws://lst-demo.univ-lemans.fr:8888/client/ws/speech|ws://lst-demo.univ-lemans.fr:8888/client/ws/status" selected="selected">Francais</option>
-              <option value="ws://lst-demo.univ-lemans.fr:443/client/ws/speech|ws://lst-demo.univ-lemans.fr:443/client/ws/status">Anglais</option>
+              <option value="ws://lst-demo.univ-lemans.fr:8888/client/ws/speech|ws://lst-demo.univ-lemans.fr:8888/client/ws/status" abbreviation="fr" selected="selected">Francais</option>
+              <option value="ws://lst-demo.univ-lemans.fr:443/client/ws/speech|ws://lst-demo.univ-lemans.fr:443/client/ws/status" abbreviation="en">Anglais</option>
           </select>
 
           <div class="topbar-divider d-none d-sm-block"></div>
@@ -140,7 +140,7 @@
 
           <div class="small mb-1">  Choix Langue Sortie: &emsp; </div>
           <select disabled id="ChoixSortie" class="mdb-select md-form">
-              <option >Francais</option>
+              <option abbreviation="fr">Francais</option>
           </select>
 
           <div class="topbar-divider d-none d-sm-block"></div>
