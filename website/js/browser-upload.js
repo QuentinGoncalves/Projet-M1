@@ -225,8 +225,10 @@ function removeAllListenerAudio(){
 	audio.removeEventListener("loadedmetadata", removeAllListenerAudio, false);
 }
 
-function add_playlist(text, id_file, id_process, progress){
+function add_playlist(text, date, id_file, id_process, progress){
 	var li = document.createElement("LI");
+	var acronym = document.createElement("acronym");
+	var br = document.createElement("br");
 	var hr = document.createElement("hr");
 	var font = document.createElement("font");
 	var font_delete = document.createElement("font");
@@ -235,6 +237,9 @@ function add_playlist(text, id_file, id_process, progress){
 	var text_delete = document.createTextNode("x");
 
 	hr.setAttribute('class', 'sidebar-divider');
+
+	acronym.setAttribute('title', text);
+	acronym.style.textDecoration = "none";
 
 	li.setAttribute("id_file", id_file);
 	li.setAttribute("id_process", id_process);
@@ -273,9 +278,14 @@ function add_playlist(text, id_file, id_process, progress){
 		li.setAttribute('onmouseout', "document.getElementById('delete"+id_file+"').style.display = 'none';");
 	}
 
-	font.appendChild(textnode);
+	var date = document.createTextNode(date.split(" ")[0]);
+	acronym.appendChild(textnode);
+	font.appendChild(acronym);
+	font.appendChild(br);
 	a.appendChild(font);
 	li.appendChild(a);
+	li.appendChild(br);
+	li.appendChild(date);
 
 	playlist.appendChild(li);
 	playlist.appendChild(hr);
@@ -298,13 +308,13 @@ function update_playlist(){
 			    playlist.innerHTML = "";
 			    var dataList =reponse["data"];
 			    var all_finished = true;
-			    //console.log(dataList);
+			    console.log(dataList);
 			    for(var i=0; i<dataList.length; i++){
 			    	if(dataList[i]["processes"]["0"] != undefined){
 				    	if(dataList[i]["processes"]["0"]["status"] == "Finished"){
-				    		add_playlist(dataList[i]["filename"] ,dataList[i]["processes"]["0"]["file_id"], dataList[i]["processes"]["0"]["id"], 100);
+				    		add_playlist(dataList[i]["filename"],dataList[i]["created_at"] ,dataList[i]["processes"]["0"]["file_id"], dataList[i]["processes"]["0"]["id"], 100);
 				    	} else {
-				    		add_playlist(dataList[i]["filename"] ,dataList[i]["processes"]["0"]["file_id"], dataList[i]["processes"]["0"]["id"], dataList[i]["processes"]["0"]["progress"]);
+				    		add_playlist(dataList[i]["filename"],dataList[i]["created_at"] ,dataList[i]["processes"]["0"]["file_id"], dataList[i]["processes"]["0"]["id"], dataList[i]["processes"]["0"]["progress"]);
 				    		all_finished = false;
 				    	}
 			    	}
