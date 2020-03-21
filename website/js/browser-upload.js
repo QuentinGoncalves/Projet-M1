@@ -12,6 +12,7 @@ var audio = document.getElementById('audio');
 var browser = document.getElementById('inputGroupFile01');
 var inputType = document.getElementById('ChoixEntree');
 var playlist = document.getElementById("serverView");
+var workers = document.getElementById("workersStatut");
 
 browser.addEventListener('change', add_file);
 //browser.addEventListener('change', save_file);
@@ -19,6 +20,7 @@ HTMLtranscription.style.overflow = "auto";
 //HTMLtranscription.style.height = "auto";
 
 update_playlist();
+update_workers();
 
 function save_file(id_file){
 	file = browser.files[0];
@@ -278,7 +280,7 @@ function add_playlist(text, date, id_file, id_process, progress){
 		li.setAttribute('onmouseout', "document.getElementById('delete"+id_file+"').style.display = 'none';");
 	}
 
-	var date = document.createTextNode(date.split(" ")[0]);
+	var date = document.createTextNode(date);
 	acronym.appendChild(textnode);
 	font.appendChild(acronym);
 	font.appendChild(br);
@@ -325,6 +327,21 @@ function update_playlist(){
 			    //On traite ici les erreurs éventuellement survenues
 			    console.log(erreur);
 			});
+}
+
+function update_workers(){
+	var frTrans = new WebSocket(document.getElementById('servers').options[0].value.split('|')[1]);
+	frTrans.onmessage = function (event) {
+  		document.getElementById("WSTransFR").innerHTML = event.data.split(",")[0].split(":")[1].replace(/ /g,"");
+	}
+	var enTrans = new WebSocket(document.getElementById('servers').options[1].value.split('|')[1]);
+	enTrans.onmessage = function (event) {
+  		document.getElementById("WSTransEN").innerHTML = event.data.split(",")[0].split(":")[1].replace(/ /g,"");
+	}
+	var frSynth = new WebSocket(document.getElementById('ChoixSortie').options[0].value.split('|')[1]);
+	frSynth.onmessage = function (event) {
+  		document.getElementById("WSSynthFR").innerHTML = event.data.split(",")[0].split(":")[1].replace(/ /g,"");
+	}
 }
 
 function sleep(ms) {
