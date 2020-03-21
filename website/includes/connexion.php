@@ -22,6 +22,7 @@ if(isset($_POST['formlogin'])){
             $_SESSION['connecte'] = "true";
             $_SESSION['nom'] = $result['nom'];
             $_SESSION['prenom'] = $result['prenom'];
+            $_SESSION['admin'] = $result['admin'];
 
             header('Location: index.php');
 
