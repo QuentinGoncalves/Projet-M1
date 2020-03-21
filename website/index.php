@@ -107,7 +107,6 @@
 	      </div>
       
           </ul>
-      </div>
        <!-- Divider -->
       <hr class="sidebar-divider">
 
