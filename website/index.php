@@ -60,47 +60,52 @@
           </a>
         </form>
       </li>
-
       <!-- Divider -->
-      <hr class="sidebar-divider">
+	      <hr class="sidebar-divider">
 
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        <ul id="playlist">
-            <li class="active sidebar-heading" >
-                <a href="./audio/Les_trois_petits_cochons.mp3">
-                   <font color="white">Trois Petits Cochons</font>
-                </a>
-            </li>
+	      <!-- Heading -->
+	      <div class="sidebar-heading">
+	      	<a href="#" onclick="update_playlist()" style="float:left"><acronym title="Refresh"><img src="img/refresh.png" style="height: 1.25rem; width: 1.25rem;"></acronym></a>
+	        <h5 style="text-align:center; float:center;"> <font color="white">My Files</font></h5>
+	      </div>
+	       <!-- Divider -->
+	      <hr class="sidebar-divider">
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+	      <div class="sidebar-heading" style="height:55%;overflow:auto;">
+	        <ul id="serverView" style="pointer-events: none; opacity: 0.5;overflow:auto; padding-left: 10%;">
 
+	        </ul>
+	      </div>
 
-            <li class="sidebar-heading">
-                <a href="http://www.archive.org/download/MoonlightSonata_755/Beethoven-MoonlightSonata.mp3">
-                    <font color="white">Test 2</font>
-                </a>
-            </li>
+	      <!-- Divider -->
+	      <hr class="sidebar-divider">
+	      <!-- Heading -->
+	      <div class="sidebar-heading">
+	        <h5 style="text-align:center;"> <font color="white">Workers</font> </h5>
+	      </div>
+	      <!-- Divider -->
+	      <hr class="sidebar-divider">
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-
-            <li class="sidebar-heading">
-                <a href="http://www.archive.org/download/CanonInD_261/CanoninD.mp3">
-                    <font color="white">Test 3</font>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <li class="sidebar-heading">
-                <a href="http://www.archive.org/download/PatrikbkarlChamberSymph/PatrikbkarlChamberSymph_vbr_mp3.zip">
-                    <font color="white">Test 4</font>
-                </a>
-              </li>
+	      <div class="sidebar-heading" style="overflow:auto;">
+		      	<ul id="workersStatut" style="padding-left: 10%;">
+					<li class="active sidebar-heading">
+						<font color="white"> Transcription FR:<a id="WSTransFR" style="float:right">?</a> </font>
+					</li>
+					<!-- Divider -->
+	      			<hr class="sidebar-divider">
+					<li class="active sidebar-heading">
+						<font color="white"> Transcription EN:<a id="WSTransEN" style="float:right">?</a> </font>
+					</li>
+					<!-- Divider -->
+	      			<hr class="sidebar-divider">
+					<li class="active sidebar-heading">
+						<font color="white"> Synthese FR:<a id="WSSynthFR" style="float:right">?</a> </font>
+					</li>
+					<!-- Divider -->
+	      			<hr class="sidebar-divider">
+		      	</ul>
+	      </div>
+      
           </ul>
       </div>
        <!-- Divider -->
@@ -140,7 +145,7 @@
 
           <div class="small mb-1">  Choix Langue Sortie: &emsp; </div>
           <select disabled id="ChoixSortie" class="mdb-select md-form">
-              <option abbreviation="fr">Francais</option>
+              <option value="ws://lst-demo.univ-lemans.fr:25/client/ws/synth|ws://lst-demo.univ-lemans.fr:25/client/ws/status" abbreviation="fr">Francais</option>
           </select>
 
           <div class="topbar-divider d-none d-sm-block"></div>
