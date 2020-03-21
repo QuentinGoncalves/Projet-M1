@@ -183,6 +183,7 @@ function confirm() {
     document.getElementById("inputGroupFile01").disabled=false;
     document.getElementById("serverView").style.pointerEvents = "auto";
     document.getElementById("serverView").style.opacity = "1";
+    $("#trans").val("");
   }
   else if(val_in=="Streaming"){
     document.getElementById("buttonToggleListening").disabled=false;
@@ -197,6 +198,8 @@ function confirm() {
     document.getElementById("btnStream").style.display="block";
     document.getElementById("hautGauchePlayer").style.display="none";
     dictate.init();
+    $("#trans").val("");
+    removeAllListenerAudio();
   }
 
 
