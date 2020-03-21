@@ -37,7 +37,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div>
           <img src="https://lium.univ-lemans.fr/wp-content/uploads/2019/11/logoLIUM.v2-1.png" width="180" height="65">
         </div>
@@ -105,16 +105,8 @@
 	      			<hr class="sidebar-divider">
 		      	</ul>
 	      </div>
-      
+
           </ul>
-       <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <div class="sidebar-heading">
-        <ul id="serverView" style="pointer-events: none; opacity: 0.5;">
-
-        </ul>
-      </div>
 
     </ul>
     <!-- End of Sidebar -->
@@ -134,17 +126,41 @@
           </button>
 
           <div class="small mb-1">  Choix Langue Entrée: &emsp; </div>
-          <select disabled id="servers" class="mdb-select md-form">
-              <option value="ws://lst-demo.univ-lemans.fr:8888/client/ws/speech|ws://lst-demo.univ-lemans.fr:8888/client/ws/status" abbreviation="fr" selected="selected">Francais</option>
-              <option value="ws://lst-demo.univ-lemans.fr:443/client/ws/speech|ws://lst-demo.univ-lemans.fr:443/client/ws/status" abbreviation="en">Anglais</option>
-          </select>
+           <select disabled id="servers" class="mdb-select md-form">
+             <?php
+                  global $db;
 
+                  $d = $db->query("SELECT * FROM langues");
+                  while($o = $d->fetch()){
+                    if($o['id'] == 1){
+                      ?>
+                      <option value="<?= $o['value'] ?>" abbreviation="<?= $o['abr'] ?>" selected="selected"><?= $o['nom'] ?></option>
+                    <?php
+                      }else{
+                        ?>
+                        <option value="<?= $o['value'] ?>" abbreviation="<?= $o['abr'] ?>" ><?= $o['nom'] ?></option>
+                    <?php }
+                  } ?>
+           </select>
           <div class="topbar-divider d-none d-sm-block"></div>
 
 
           <div class="small mb-1">  Choix Langue Sortie: &emsp; </div>
           <select disabled id="ChoixSortie" class="mdb-select md-form">
-              <option value="ws://lst-demo.univ-lemans.fr:25/client/ws/synth|ws://lst-demo.univ-lemans.fr:25/client/ws/status" abbreviation="fr">Francais</option>
+            <?php
+                 global $db;
+
+                 $d = $db->query("SELECT * FROM languesortie");
+                 while($os = $d->fetch()){
+                   if($os['id'] == 1){
+                     ?>
+                     <option value="<?= $os['value'] ?>" abbreviation="<?= $os['abr'] ?>" selected="selected"><?= $os['nom'] ?></option>
+                   <?php
+                     }else{
+                       ?>
+                       <option value="<?= $os['value'] ?>" abbreviation="<?= $os['abr'] ?>" ><?= $o['nom'] ?></option>
+                   <?php }
+                 } ?>
           </select>
 
           <div class="topbar-divider d-none d-sm-block"></div>

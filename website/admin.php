@@ -86,7 +86,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div>
           <img src="https://lium.univ-lemans.fr/wp-content/uploads/2019/11/logoLIUM.v2-1.png" width="180" height="65">
         </div>
