@@ -149,9 +149,7 @@ function getXML(id_file){
 			    //displayAllTranscription();
 
 			    audio.addEventListener('timeupdate', displayTranscription, false);
-				//audio.addEventListener('timeupdate', focusTranscription, false);
-				sleep(300).then(() => {audio.addEventListener('loadedmetadata', removeAllListenerAudio, false); });
-			    
+				//audio.addEventListener('timeupdate', focusTranscription, false);		    
 			})
 			.catch(function (erreur) {
 			    // On traite ici les erreurs éventuellement survenues
@@ -176,15 +174,15 @@ function XMLtoString_CurrentTime(time){
 function displayTranscription(){
 	if(xml != null){
 		var duration = audio.currentTime;
-		//var result = string_difference(HTMLtranscription.value, XMLtoString_CurrentTime(duration));
+		var result = string_difference(HTMLtranscription.value, XMLtoString_CurrentTime(duration));
 		//console.log(result[1]);
-		//add_translation(result[1]);
+		add_translation(result[1]);
 
-		HTMLtranscription.innerHTML = XMLtoString_CurrentTime(duration);
+		$("#trans").val(XMLtoString_CurrentTime(duration));
 		HTMLtranscription.scrollTop = HTMLtranscription.scrollHeight;
 	}
 }
-
+/*
 function focusTranscription(){
 	if(xml != null){
 		var duration = audio.currentTime;
@@ -219,12 +217,12 @@ function displayAllTranscription(){
 		HTMLtranscription.innerHTML = text;
 	}
 }
-
+*/
 function removeAllListenerAudio(){
-	HTMLtranscription.innerHTML = "";
+	$("#trans").val("");
 	audio.removeEventListener("timeupdate", displayTranscription, false);
 	//audio.removeEventListener('timeupdate', focusTranscription, false);
-	audio.removeEventListener("loadedmetadata", removeAllListenerAudio, false);
+	//audio.removeEventListener("loadedmetadata", removeAllListenerAudio, false);
 }
 
 function add_playlist(text, date, id_file, id_process, progress){
