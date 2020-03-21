@@ -5,8 +5,8 @@ $(document).ready(function() {
   document.getElementById("servers").disabled=false;
   document.getElementById("ChoixSortie").disabled=false;
   document.getElementById("ChoixEntree").disabled=false;
+  document.getElementById("hautGauche").style.display="block";
   document.getElementById("hautGauchePlayer").style.display="block";
-  document.getElementById("hautGaucheBouton").style.display="none";
   document.getElementById("hautDroitPlayer").style.display="block";
   document.getElementById("divTrans").style.display="block";
   document.getElementById("divTrad").style.display="block";

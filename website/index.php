@@ -220,26 +220,26 @@
           <!-- Page Heading -->
           <div id="Report" class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800"></h1>
-            <a href="mailto:lium.toutauto@gmail.com" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            <a href="mailto:lium.toutauto@gmail.com" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Mail To</a>
           </div>
 
 
           <!-- Content Row -->
           <div class="row">
 
-            <!-- Commandes Streaming / Microphone -->
+            <!-- Commandes Streaming / Microphone
             <div style="display: none"="none" id="hautGaucheBouton" class="col-xl-6 col-md-6 mb-4">
               <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <!--Textarea with icon prefix-->
+                        <!-Textarea with icon prefix-
                         <div class="md-form mb-4 pink-textarea active-pink-textarea">
                           <h1 class="h3 mb-0 text-gray-800">Commandes</h1>
-                          <!-- <audio controls>
+                          <!- <audio controls>
                               <source src="horse.ogg" type="audio/ogg">
                               <source src="horse.mp3" type="audio/mpeg">
-                            </audio> -->
+                            </audio> -
                             <input type="button" id="buttonToggleListening"
                             disabled
                              onclick="toggleListening();"
@@ -260,18 +260,21 @@
                 </div>
               </div>
             </div>
+          TEST -->
 
             <!-- Player Transcription -->
-            <div style="display: none"="none" id="hautGauchePlayer" class="col-xl-6 col-md-6 mb-4" >
+            <div id="hautGauche" style="display: none"  class="col-xl-6 col-md-6 mb-4" >
               <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="md-form mb-4 pink-textarea active-pink-textarea">
-                          <h1 class="h3 mb-0 text-gray-800">Player Entree</h1>
-                          <audio id="audio" preload="auto" tabindex="0" controls="" >
-                            Your Fallback goes here
-                          </audio>
+                          <div id="hautGauchePlayer">
+                            <h1 class="h3 mb-0 text-gray-800">Player Entree</h1>
+                            <audio id="audio" preload="auto" tabindex="0" controls="" >
+                              Your Fallback goes here
+                            </audio>
+                          </div>
                           <div id="btnStream" class="md-form mb-4 pink-textarea active-pink-textarea">
                             <h1 class="h3 mb-0 text-gray-800">Commandes</h1>
                             <!-- <audio controls>
@@ -301,7 +304,7 @@
               </div>
 
               <!-- Player Traduction -->
-              <div style="display: none"="none" id="hautDroitPlayer" class="col-xl-6 col-md-6 mb-4" >
+              <div style="display: none" id="hautDroitPlayer" class="col-xl-6 col-md-6 mb-4" >
                 <div class="card border-left-info shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -326,7 +329,7 @@
           <div class="row">
 
             <!-- Transcription -->
-            <div style="display: none"="none" id="divTrans" class="col-xl-6 col-md-6 mb-4">
+            <div style="display: none" id="divTrans" class="col-xl-6 col-md-6 mb-4">
               <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -345,7 +348,7 @@
             </div>
 
             <!-- Traduction -->
-            <div style="display: none"="none" id="divTrad" class="col-xl-6 col-md-6 mb-4" >
+            <div style="display: none" id="divTrad" class="col-xl-6 col-md-6 mb-4" >
               <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">

@@ -189,13 +189,13 @@ function confirm() {
     document.getElementById("inputGroupFile01").disabled=false;
     document.getElementById("btnStream").style.display="block";
     document.getElementById("hautGauchePlayer").style.display="block";
-    document.getElementById("hautGaucheBouton").style.display="none";
     dictate.init();
   }
   else{
     document.getElementById("buttonToggleListening").disabled=false;
+    document.getElementById("inputGroupFile01").disabled=true;
+    document.getElementById("btnStream").style.display="block";
     document.getElementById("hautGauchePlayer").style.display="none";
-    document.getElementById("hautGaucheBouton").style.display="block";
     dictate.init();
   }
 
@@ -217,13 +217,15 @@ function reset() {
   var menu_out = document.getElementById("ChoixSortie");
   var val_out = menu_out.options[menu_out.selectedIndex].text;
 
-  if(val_in=="Fichier" || val_in=="Streaming"){
+  if(val_in=="Fichier"){
     document.getElementById("buttonToggleListening").disabled=true;
     document.getElementById("inputGroupFile01").disabled=true;
     document.getElementById("btnStream").style.display="none";
   }else{
+    document.getElementById("inputGroupFile01").disabled=true;
+    document.getElementById("buttonToggleListening").disabled=true;
     document.getElementById("hautGauchePlayer").style.display="block";
-    document.getElementById("hautGaucheBouton").style.display="none";
+    document.getElementById("btnStream").style.display="none";
   }
   dictate.cancel();
 }
