@@ -178,12 +178,12 @@ function confirm() {
 	var val_in = menu_in.options[menu_in.selectedIndex].text;
 	var menu_out = document.getElementById("ChoixSortie");
 	var val_out = menu_out.options[menu_out.selectedIndex].text;
+	removeAllListenerAudio();
 
   if(val_in=="Fichier"){
     document.getElementById("inputGroupFile01").disabled=false;
     document.getElementById("serverView").style.pointerEvents = "auto";
     document.getElementById("serverView").style.opacity = "1";
-    $("#trans").val("");
   }
   else if(val_in=="Streaming"){
     document.getElementById("buttonToggleListening").disabled=false;
@@ -198,8 +198,6 @@ function confirm() {
     document.getElementById("btnStream").style.display="block";
     document.getElementById("hautGauchePlayer").style.display="none";
     dictate.init();
-    $("#trans").val("");
-    removeAllListenerAudio();
   }
 
 
