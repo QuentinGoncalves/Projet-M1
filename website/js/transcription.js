@@ -179,6 +179,7 @@ function confirm() {
 	var menu_out = document.getElementById("ChoixSortie");
 	var val_out = menu_out.options[menu_out.selectedIndex].text;
 	removeAllListenerAudio();
+	document.getElementById("audio").pause();
 
   if(val_in=="Fichier"){
     document.getElementById("inputGroupFile01").disabled=false;
