@@ -71,7 +71,7 @@
 	       <!-- Divider -->
 	      <hr class="sidebar-divider">
 
-	      <div class="sidebar-heading" style="height:55%;overflow:auto;">
+	      <div class="sidebar-heading" style="height:40%;overflow:auto;">
 	        <ul id="serverView" style="pointer-events: none; opacity: 0.5;overflow:auto; padding-left: 10%;">
 
 	        </ul>
