@@ -27,6 +27,10 @@
   <style>
   body {font-family: Arial, Helvetica, sans-serif;}
 
+  .Report{
+    float: right;
+  }
+
   .buttondel{
     cursor: pointer;
     border: none;
@@ -113,35 +117,41 @@
             <i class="fa fa-bars"></i>
           </button>
 
-          <div class="medium mb-1"> Ajouter une langue : &emsp; </div>
+          <div class="medium mt-4"> Ajouter une langue : &emsp; </div>
 
-          <div class="small mb-1">
+          <div class="small mb-0">
             <form method="post">
-                <input type="text" class="form-control form-control-user" name="Langue" id="nomLangue" placeholder="Exemple : Francais" required>
+                <input type="text" class="form-control form-control-user" name="nomLangue" id="nomLangue" placeholder="Exemple : Francais" required>
           </div>
-
 
               <div class="topbar-divider d-none d-sm-block"></div>
 
 
-
-            <div class="small mb-1">
-                <input type="text" class="form-control form-control-user" name="Serveur" id="serveurLangue" placeholder="Exemple : ws://lst-demo.univ-lemans.fr:8888/client/ws/speech|ws://lst-demo.univ-lemans.fr:8888/client/ws/status" required>
+            <div class="small mb-0">
+                <input type="text" class="form-control form-control-user" name="serveurLangue" id="serveurLangue" placeholder="Exemple : ws://lst-demo.univ-lemans.fr:8888/client/ws/speech|ws://lst-demo.univ-lemans.fr:8888/client/ws/status" required>
             </div>
-
-
 
           <div class="topbar-divider d-none d-sm-block"></div>
 
-          <div class="small mb-1">
-              <input type="text" class="form-control form-control-user" name="Abbreviation" id="abbrLangue" placeholder="Exemple : fr" required>
+          <div class="small mb-0">
+              <input type="text" class="form-control form-control-user" name="abbrLangue" id="abbrLangue" placeholder="Exemple : fr" required>
           </div>
 
           <div class="topbar-divider d-none d-sm-block"></div>
 
-          <div class="small mb-1">
+          <div class="small mb-0">
+            <select name="typeSelect">
+              <option value="langues">Entree</option>
+              <option value="languesortie">Sortie</option>
+            </select>
+          </div>
+
+          <div class="topbar-divider d-none d-sm-block"></div>
+
+          <div class="small mb-0">
             <input type="submit" name="formlang" id="formlang" class="btn btn-primary btn-user btn-block" value="Valider">
-            </form>
+          </form>
+
           </div>
 
 
@@ -194,13 +204,14 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
-          <div id="Report" class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800"></h1>
-            <a href="mailto:lium.toutauto@gmail.com" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Mail To</a>
-          </div>
+          <div class="row">
+
+            <div class="medium mb-5">
+              <?php include 'includes/ajoutLangue.php' ?>
+            </div>
 
 
+        </div>
 
           <!-- Content Row -->
           <div class="row">
