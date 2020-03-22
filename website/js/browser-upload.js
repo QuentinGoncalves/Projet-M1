@@ -4,6 +4,8 @@ var id_file;
 var id_process;
 var xml;
 var token = 'WyIxOSIsImRjODIxMDExZDBkYjY0YmNiZjZjNmIzZDQzODZhOTQwIl0.EJs66g.5qnm6VETk7EqY3ubO3SMgW-4gmQ';
+var cursor = 0;
+var seekingAudio = false;
 
 //Change in accordance with the HTML code
 var HTMLtranscription = document.getElementById('trans');
@@ -138,17 +140,20 @@ function getXML(id_file){
 			.then(function (reponse) {
 			    //On traite la suite une fois la réponse obtenue
 			    removeAllListenerAudio();
-
+			    
 			    var parser = new DOMParser();
 			    xml = parser.parseFromString(reponse["data"],"text/xml");
 		
 			    audio.src = "audio/" + id_file + ".mp3";
 			    audio.load();
+			    cursor = -1;
 
 			    displayTranscription();
 			    //displayAllTranscription();
 
 			    audio.addEventListener('timeupdate', displayTranscription, false);
+			    audio.addEventListener('seeking', setSeekingTrue, false);
+			    audio.addEventListener('seeked', setSeekingFalse, false);
 				//audio.addEventListener('timeupdate', focusTranscription, false);		    
 			})
 			.catch(function (erreur) {
@@ -157,6 +162,29 @@ function getXML(id_file){
 			});
 }
 
+function setSeekingFalse(){
+	seekingAudio = false;
+	cursor = XMLCursor(audio.currentTime);
+	$("#trad").val("");
+}
+
+function setSeekingTrue(){
+	seekingAudio = true;
+}
+
+function XMLCursor(time){
+	var i = 0;
+	var xmlTime = parseFloat(xml.getElementsByTagName("Word")[i].getAttribute("stime"));
+	while(xmlTime <= time){
+		i = i + 1;
+		xmlTime = parseFloat(xml.getElementsByTagName("Word")[i].getAttribute("stime"));
+	}
+	return i-1;
+}
+
+function XMLtoString_Cursor(cursor){
+	return xml.getElementsByTagName("Word")[cursor].childNodes[0].nodeValue.replace(/ /g,"") + " ";
+}
 
 // Get the String text in the XML with a time
 function XMLtoString_CurrentTime(time){
@@ -174,9 +202,20 @@ function XMLtoString_CurrentTime(time){
 function displayTranscription(){
 	if(xml != null){
 		var duration = audio.currentTime;
-		var result = string_difference(HTMLtranscription.value, XMLtoString_CurrentTime(duration));
+		//var result = string_difference(HTMLtranscription.value, XMLtoString_CurrentTime(duration));
 		//console.log(result[1]);
-		add_translation(result[1]);
+		//add_translation(result[1]);
+		var newCursor = XMLCursor(duration);
+		if(cursor < newCursor && !seekingAudio && newCursor - cursor < 7){
+			var delta = newCursor - cursor;
+			var i = 1;
+			while(i <= delta){
+				console.log(XMLtoString_Cursor(cursor+i));
+				add_translation(XMLtoString_Cursor(cursor+i));
+				i++;
+			}	
+		}
+		cursor = newCursor;
 
 		$("#trans").val(XMLtoString_CurrentTime(duration));
 		HTMLtranscription.scrollTop = HTMLtranscription.scrollHeight;
@@ -221,6 +260,8 @@ function displayAllTranscription(){
 function removeAllListenerAudio(){
 	$("#trans").val("");
 	audio.removeEventListener("timeupdate", displayTranscription, false);
+	audio.removeEventListener('seeking', setSeekingTrue, false);
+	audio.removeEventListener('seeked', setSeekingFalse, false);
 	//audio.removeEventListener('timeupdate', focusTranscription, false);
 	//audio.removeEventListener("loadedmetadata", removeAllListenerAudio, false);
 }
