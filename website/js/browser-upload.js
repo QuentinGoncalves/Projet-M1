@@ -360,7 +360,11 @@ function update_playlist(){
 				    	}
 			    	}
 			    }
-			    if(!all_finished) setTimeout(update_playlist(), 50000);
+			    if(!all_finished){
+			    	setTimeout(function() {
+					update_playlist();
+				}, 5000);
+			    }
 			})
 			.catch(function (erreur) {
 			    //On traite ici les erreurs éventuellement survenues
