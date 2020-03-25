@@ -3,8 +3,10 @@ var numWS;
 var server;
 var serverStatus;
 
-server : $("#ChoixSortie").val().split('|')[0];
-serverStatus : $("#ChoixSortie").val().split('|')[1];
+server = $("#ChoixSortie").val().split('|')[0];
+serverStatus = $("#ChoixSortie").val().split('|')[1];
+
+console.log(serverStatus);
 
 function worker(){
   var frSynth = new WebSocket(serverStatus);
@@ -14,8 +16,6 @@ function worker(){
 }
 
 worker();
-
-console.log(numWS);
 
 var tabGain = [];
 
