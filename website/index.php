@@ -86,23 +86,9 @@
 	      <!-- Divider -->
 	      <hr class="sidebar-divider">
 
-	      <div class="sidebar-heading" style="overflow:auto;">
+	      <div class="sidebar-heading" style="overflow:auto;height:20%;">
 		      	<ul id="workersStatut" style="padding-left: 10%;">
-					<li class="active sidebar-heading">
-						<font color="white"> Transcription FR:<a id="WSTransFR" style="float:right">?</a> </font>
-					</li>
-					<!-- Divider -->
-	      			<hr class="sidebar-divider">
-					<li class="active sidebar-heading">
-						<font color="white"> Transcription EN:<a id="WSTransEN" style="float:right">?</a> </font>
-					</li>
-					<!-- Divider -->
-	      			<hr class="sidebar-divider">
-					<li class="active sidebar-heading">
-						<font color="white"> Synthese FR:<a id="WSSynthFR" style="float:right">?</a> </font>
-					</li>
-					<!-- Divider -->
-	      			<hr class="sidebar-divider">
+					
 		      	</ul>
 	      </div>
 
