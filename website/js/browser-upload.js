@@ -373,17 +373,43 @@ function update_playlist(){
 }
 
 function update_workers(){
-	var frTrans = new WebSocket(document.getElementById('servers').options[0].value.split('|')[1]);
-	frTrans.onmessage = function (event) {
-  		document.getElementById("WSTransFR").innerHTML = event.data.split(",")[0].split(":")[1].replace(/ /g,"");
+	var entree = document.getElementById('servers');
+	var sortie = document.getElementById('ChoixSortie');
+
+	for (var i = 0; i < entree.options.length; i++) {
+		add_workers("Transcription", entree.options[i].getAttribute("abbreviation").toUpperCase(), entree.options[i].value.split('|')[1])
 	}
-	var enTrans = new WebSocket(document.getElementById('servers').options[1].value.split('|')[1]);
-	enTrans.onmessage = function (event) {
-  		document.getElementById("WSTransEN").innerHTML = event.data.split(",")[0].split(":")[1].replace(/ /g,"");
+
+	for (var i = 0; i < sortie.options.length; i++) {
+		add_workers("Synthese", sortie.options[i].getAttribute("abbreviation").toUpperCase(), entree.options[i].value.split('|')[1])
 	}
-	var frSynth = new WebSocket(document.getElementById('ChoixSortie').options[0].value.split('|')[1]);
-	frSynth.onmessage = function (event) {
-  		document.getElementById("WSSynthFR").innerHTML = event.data.split(",")[0].split(":")[1].replace(/ /g,"");
+}
+
+function add_workers(text, langue, url){
+	var li = document.createElement("LI");
+	var font = document.createElement("font");
+	var a = document.createElement("a");
+	var hr = document.createElement("hr");
+	var text1 = document.createTextNode(text+" "+langue);
+	var text2 = document.createTextNode("?");
+
+	li.setAttribute("class", "active sidebar-heading");
+	hr.setAttribute('class', 'sidebar-divider');
+	font.setAttribute("color", "white");
+	a.setAttribute("id", text+langue);
+
+	a.style.float = "right";
+
+	a.appendChild(text2);
+	font.appendChild(text1);
+	font.appendChild(a);
+	li.appendChild(font);
+	workers.appendChild(li);
+	workers.appendChild(hr);
+
+	var socket = new WebSocket(url);
+	socket.onmessage = function (event) {
+  		document.getElementById(text+langue).innerHTML = event.data.split(",")[0].split(":")[1].replace(/ /g,"");
 	}
 }
 
