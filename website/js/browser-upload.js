@@ -37,7 +37,7 @@ function save_file(id_file){
 	})
 	.catch(function (error) {
 		console.log(error);
-	});	
+	});
 }
 
 function delete_file(id_file){
@@ -51,7 +51,7 @@ function delete_file(id_file){
 	})
 	.catch(function (error) {
 		console.log(error);
-	});	
+	});
 }
 
 function add_file() {
@@ -140,10 +140,10 @@ function getXML(id_file){
 			.then(function (reponse) {
 			    //On traite la suite une fois la réponse obtenue
 			    removeAllListenerAudio();
-			    
+
 			    var parser = new DOMParser();
 			    xml = parser.parseFromString(reponse["data"],"text/xml");
-		
+
 			    audio.src = "audio/" + id_file + ".mp3";
 			    audio.load();
 			    cursor = -1;
@@ -154,7 +154,7 @@ function getXML(id_file){
 			    audio.addEventListener('timeupdate', displayTranscription, false);
 			    audio.addEventListener('seeking', setSeekingTrue, false);
 			    audio.addEventListener('seeked', setSeekingFalse, false);
-				//audio.addEventListener('timeupdate', focusTranscription, false);		    
+				//audio.addEventListener('timeupdate', focusTranscription, false);
 			})
 			.catch(function (erreur) {
 			    // On traite ici les erreurs éventuellement survenues
@@ -213,7 +213,7 @@ function displayTranscription(){
 				console.log(XMLtoString_Cursor(cursor+i));
 				add_translation(XMLtoString_Cursor(cursor+i));
 				i++;
-			}	
+			}
 		}
 		cursor = newCursor;
 
@@ -381,7 +381,7 @@ function update_workers(){
 	}
 
 	for (var i = 0; i < sortie.options.length; i++) {
-		add_workers("Synthese", sortie.options[i].getAttribute("abbreviation").toUpperCase(), entree.options[i].value.split('|')[1])
+		add_workers("Synthese", sortie.options[i].getAttribute("abbreviation").toUpperCase(), sortie.options[i].value.split('|')[1])
 	}
 }
 
