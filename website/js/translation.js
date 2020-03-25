@@ -30,7 +30,7 @@ function add_translation(text){
 			  });
 	}
 	//console.log(translated);
-	//return translated;
+	return translated;
 }
 
 function delete_translation(){

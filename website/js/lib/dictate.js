@@ -249,7 +249,7 @@
 					if (item instanceof Blob) {
 						if (item.size > 0) {
 							ws.send(item);
-							config.onEvent(MSG_SEND, 'Send: blob: ' + item.type + ', ' + item.size);
+							// config.onEvent(MSG_SEND, 'Send: blob: ' + item.type + ', ' + item.size);
 						} else {
 							config.onEvent(MSG_SEND_EMPTY, 'Send: blob: ' + item.type + ', EMPTY');
 						}

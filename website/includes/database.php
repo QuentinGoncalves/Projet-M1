@@ -2,8 +2,8 @@
 
   define('HOST','localhost');
   define('DB_NAME','siteweb');
-  define('USER','root');
-  define('PASS','');
+  define('USER','groupe2');
+  define('PASS','groupe2');
 
   try {
     $db = new PDO("mysql:host=" . HOST . ";dbname=" . DB_NAME, USER, PASS);
