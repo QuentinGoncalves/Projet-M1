@@ -1,9 +1,9 @@
 <?php
 
   define('HOST','localhost');
-  define('DB_NAME','website');
-  define('USER','quentin');
-  define('PASS','quentin');
+  define('DB_NAME','siteweb');
+  define('USER','groupe2');
+  define('PASS','groupe2');
 
   try {
     $db = new PDO("mysql:host=" . HOST . ";dbname=" . DB_NAME, USER, PASS);
