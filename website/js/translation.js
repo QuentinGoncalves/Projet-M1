@@ -19,6 +19,7 @@ function add_translation(text){
 				var string = list[0]['translatedTextRaw'];
 				var translated = string.split('"').join(' ');
 				HTMLtranslation.value = HTMLtranslation.value + translated;
+				HTMLtranslation.scrollTop = HTMLtranslation.scrollHeight;
 			  })
 			  .catch(function (error) {
 			  	HTMLtranslation.value = "Erreur: " + error;
