@@ -180,6 +180,7 @@ function confirm() {
 	var menu_out = document.getElementById("ChoixSortie");
 	var val_out = menu_out.options[menu_out.selectedIndex].text;
 	removeAllListenerAudio();
+	delete_translation();
 	document.getElementById("audio").pause();
 
   if(val_in=="Fichier"){
