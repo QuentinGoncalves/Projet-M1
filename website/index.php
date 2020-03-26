@@ -358,7 +358,7 @@
                         <div class="md-form mb-4 pink-textarea active-pink-textarea">
                           <h1 class="h3 mb-0 text-gray-800">Traduction</h1>
                           <i class="fas fa-angle-double-right prefix"></i>
-                          <textarea disabled id="trad" class="md-textarea form-control" rows="3"></textarea>
+                          <textarea disabled id="trad" class="md-textarea form-control" rows="3" style="overflow: auto;"></textarea>
                           <label for="form21"></label>
                         </div>
                     </div>
