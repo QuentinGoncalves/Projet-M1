@@ -140,6 +140,7 @@ function getXML(id_file){
 			.then(function (reponse) {
 			    //On traite la suite une fois la réponse obtenue
 			    removeAllListenerAudio();
+			    delete_translation();
 
 			    var parser = new DOMParser();
 			    xml = parser.parseFromString(reponse["data"],"text/xml");
