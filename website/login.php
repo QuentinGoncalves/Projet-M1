@@ -51,11 +51,11 @@
                   <?php include 'includes/connexion.php' ?>
 
                   <hr>
-                  <div class="text-center">
+                  <!-- <div class="text-center">
                     <a class="small" href="forgot-password.html">Mot de passe oublié ?</a>
-                  </div>
+                  </div> -->
                   <div class="text-center">
-                    <a class="small" href="register.php">Créé un compte !</a>
+                    <a class="small" href="register.php">Créer un compte !</a>
                   </div>
                   <div class="text-center">
                     <a class="small" href="index.php">Accueil</a>

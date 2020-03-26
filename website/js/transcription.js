@@ -119,7 +119,7 @@ var dictate = new Dictate({
 				doUpper = false;
 			}
 			doPrependSpace = (hypText.length > 0) && !(/\n *$/.test(hypText));
-      synthese(add_translation(hypText));
+      synthese(add_translation(hypText.toLowerCase()));
 		},
 		onError : function(code, data) {
 			dictate.cancel();

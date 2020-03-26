@@ -17,11 +17,7 @@ function add_translation(text){
 				// Save file id and process id
 				var list = response['data']['data']['translations'];
 				var string = list[0]['translatedTextRaw'];
-				var tab = string.split('"');
-				translated = tab[(tab.length-1)].replace(/&|nbsp|;|!|"|[{()}]/g,"") + " ";
-				while(translated != "" && translated.charAt(0) == " "){
-					translated = translated.substring(1);
-				}
+				var translated = string.split('"').join(' ');
 				HTMLtranslation.value = HTMLtranslation.value + translated;
 			  })
 			  .catch(function (error) {

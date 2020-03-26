@@ -59,9 +59,9 @@
               <?php include 'includes/inscription.php' ?>
 
               <hr>
-              <div class="text-center">
+              <!-- <div class="text-center">
                 <a class="small" href="forgot-password.html">Mot de passe oublié ?</a>
-              </div>
+              </div> -->
               <div class="text-center">
                 <a class="small" href="login.php">Déjà inscrit ? Connectez-vous !</a>
               </div>
