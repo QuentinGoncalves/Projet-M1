@@ -88,7 +88,7 @@
 
 	      <div class="sidebar-heading" style="overflow:auto;height:20%;">
 		      	<ul id="workersStatut" style="padding-left: 10%;">
-					
+
 		      	</ul>
 	      </div>
 
@@ -312,7 +312,7 @@
                       <div class="col mr-2">
                           <div class="md-form mb-4 pink-textarea active-pink-textarea">
                             <h1 class="h3 mb-0 text-gray-800">Player Sortie</h1>
-                            <audio id="audio" preload="auto" tabindex="0" controls="" >
+                            <audio id="audio2" preload="auto" tabindex="0" controls="" >
                               Your Fallback goes here
                             </audio>
                             </div>
@@ -358,7 +358,7 @@
                         <div class="md-form mb-4 pink-textarea active-pink-textarea">
                           <h1 class="h3 mb-0 text-gray-800">Traduction</h1>
                           <i class="fas fa-angle-double-right prefix"></i>
-                          <textarea disabled id="trad" class="md-textarea form-control" rows="3" style="overflow: auto;"></textarea>
+                          <textarea disabled id="trad" class="md-textarea form-control" rows="3"></textarea>
                           <label for="form21"></label>
                         </div>
                     </div>
