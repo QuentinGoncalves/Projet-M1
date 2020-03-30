@@ -119,7 +119,7 @@ var dictate = new Dictate({
 				doUpper = false;
 			}
 			doPrependSpace = (hypText.length > 0) && !(/\n *$/.test(hypText));
-      synthese(add_translation(hypText.toLowerCase()));
+      add_translation(hypText.toLowerCase());
 		},
 		onError : function(code, data) {
 			dictate.cancel();
@@ -133,7 +133,7 @@ var dictate = new Dictate({
 
 // Private methods (called from the callbacks)
 function __message(code, data) {
-	console.log("msg: " + code + ": " + (data || '') + "\n");
+	// console.log("msg: " + code + ": " + (data || '') + "\n");
 }
 
 function __error(code, data) {
@@ -141,7 +141,7 @@ function __error(code, data) {
 }
 
 function __serverStatus(msg) {
-	console.log(msg);
+	// console.log(msg);
 }
 
 function __updateTranscript(text) {

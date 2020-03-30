@@ -9,25 +9,25 @@ function add_translation(text){
 	set_language();
 	let formData = new FormData();
 	var url = 'http://lst-demo.univ-lemans.fr:'+port+'/translate?q=%22'+encodeURIComponent(text)+'%22&source='+source+'&target='+target+'&key=bla';
-	var translated = "";
+
 	if(text != "" && text != undefined){
 		axios.get(url, formData, {
 			})
 			.then(function (response) {
 				// Save file id and process id
 				var list = response['data']['data']['translations'];
-				var string = list[0]['translatedTextRaw'];
+				var string = list[0]['translatedText'];
 				var translated = string.split('"').join(' ');
 				HTMLtranslation.value = HTMLtranslation.value + translated;
 				HTMLtranslation.scrollTop = HTMLtranslation.scrollHeight;
+				synthese(translated);
 			  })
 			  .catch(function (error) {
 			  	HTMLtranslation.value = "Erreur: " + error;
 			    console.log(error);
 			  });
 	}
-	//console.log(translated);
-	return translated;
+	// return translated;
 }
 
 function delete_translation(){

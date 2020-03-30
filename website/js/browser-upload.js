@@ -350,7 +350,6 @@ function update_playlist(){
 			    playlist.innerHTML = "";
 			    var dataList =reponse["data"];
 			    var all_finished = true;
-			    console.log(dataList);
 			    for(var i=0; i<dataList.length; i++){
 			    	if(dataList[i]["processes"]["0"] != undefined){
 				    	if(dataList[i]["processes"]["0"]["status"] == "Finished"){

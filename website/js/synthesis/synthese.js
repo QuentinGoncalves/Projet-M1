@@ -6,18 +6,46 @@ var serverStatus;
 server = $("#ChoixSortie").val().split('|')[0];
 serverStatus = $("#ChoixSortie").val().split('|')[1];
 
-console.log(serverStatus);
 
 function worker(){
-  var frSynth = new WebSocket(serverStatus);
-  frSynth.onmessage = function (event) {
+  var wsSynthWorker = new WebSocket(serverStatus);
+  wsSynthWorker.onmessage = function (event) {
       numWS = event.data.split(",")[0].split(":")[1].replace(/ /g,"");
   }
 }
 
 worker();
 
-var tabGain = [];
+
+var tabSources=[];
+var tabDuration=[];
+
+
+var currentAudioPlaying=0;
+var nbAudio = 0;
+
+var ctxs = [];
+var sources = [];
+
+function checkAudio(){
+  if(nbAudio > currentAudioPlaying){
+    var i = currentAudioPlaying;
+    if(ctxs[i].state == "suspended" || ctxs[i].state == "closed"){
+      //demarrer l'audio
+      ctxs[i].resume();
+      tabSources[i].start();
+    }
+    else{
+      //audio termine ?
+      duration = tabDuration[i];
+      if(ctxs[i].currentTime >= duration){
+        tabSources[i].stop();
+        currentAudioPlaying++;
+        checkAudio();
+      }
+    }
+  }
+}
 
 function synthese(texte){
      if(numWS>0){
@@ -37,7 +65,6 @@ function synthese(texte){
              var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
              var source = audioCtx.createBufferSource();
              audioCtx.suspend();
-             ctxs.push(audioCtx);
              var byteNumbers = new Array(myconvstring.length);
              for (var i = 0; i < myconvstring.length; i++) {
                byteNumbers[i] = myconvstring.charCodeAt(i);
@@ -49,14 +76,19 @@ function synthese(texte){
                var gainNode = audioCtx.createGain();
                gainNode.connect(audioCtx.destination);
                source.connect(gainNode);
-               //source.connect(audioCtx.destination);
-               tabGain.push(gainNode);
-               tabSources.push(source);
-               tabDuration.push(totDuration);
+
+               // source.connect(audioCtx.destination);
                console.log("Synthese prete :"+texte);
 
+               ctxs.push(audioCtx);
+               tabSources.push(source);
+               tabDuration.push(totDuration);
+
+               nbAudio++;
+
                //source.start(audioCtx.currentTime+offset,0,totDuration);
-               //source.start();
+               // audioCtx.resume();
+               // source.start();
              },
 
              function(e){ console.log("Error with decoding audio data" + e.err); });
@@ -99,3 +131,6 @@ function synthese(texte){
        console.log("pas de worker synthese dispo ...");
      }
 }
+
+audioCheck = setInterval(checkAudio, 200);
+workercheck = setInterval(worker, 1000);
